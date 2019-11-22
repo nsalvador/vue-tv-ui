@@ -13,7 +13,9 @@ export default {
   },
   methods: {
     search(show) {
-      alert(`Searching for ${show}`);
+      if (show !== "") {
+        alert(`Searching for ${show}`);
+      }
     }
   }
 };

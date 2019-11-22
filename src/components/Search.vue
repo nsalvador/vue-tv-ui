@@ -6,6 +6,7 @@
       append-icon="mdi-magnify"
       @keydown.enter="search"
       v-model="show"
+      @click:append="search"
     ></v-text-field>
   </v-container>
 </template>
