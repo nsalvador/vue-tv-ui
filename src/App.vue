@@ -1,20 +1,29 @@
 <template>
   <v-app>
-    <Search @search="search" />
+    <app-search-bar @search="search" />
+    <app-search-results :showToSearch="show" />
   </v-app>
 </template>
 
 <script>
-import Search from "./components/Search";
+import appSearchBar from "./components/Search/Bar.vue";
+import appSearchResults from "./components/Search/Results";
+
 export default {
-  name: "App",
   components: {
-    Search
+    appSearchBar,
+    appSearchResults
+  },
+  data() {
+    return {
+      show: "",
+      error: null
+    };
   },
   methods: {
     search(show) {
       if (show !== "") {
-        alert(`Searching for ${show}`);
+        this.show = show;
       }
     }
   }

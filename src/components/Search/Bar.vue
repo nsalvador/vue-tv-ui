@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-text-field
+      clearable
       outlined
       placeholder="Search..."
       append-icon="mdi-magnify"
@@ -13,7 +14,6 @@
 
 <script>
 export default {
-  name: "Search",
   data() {
     return {
       show: ""
