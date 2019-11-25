@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height grid-list-md>
+  <v-container grid-list-md>
     <v-pagination :length="pages" v-model="page" v-show="pages>1" @input="next"></v-pagination>
     <v-layout row wrap>
       <v-flex v-for="(showObject, index) in series" :key="index" xs3>
