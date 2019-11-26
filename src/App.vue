@@ -2,7 +2,13 @@
   <v-app>
     <v-content>
       <app-header @search="search" />
-      <app-results :seriesObject="series" />
+      <app-results
+        :seriesObject="series"
+        :show="show"
+        v-show="Object.keys(series).length!==0"
+        v-if="!error"
+      />
+      <pre v-else>{{ error.name }}: {{error.message }}</pre>
     </v-content>
   </v-app>
 </template>
@@ -15,13 +21,17 @@ import axios from "axios";
 export default {
   data() {
     return {
+      show: "",
       series: {},
       error: null
     };
   },
   methods: {
     async search(show) {
+      this.series = {};
+      this.error = null;
       try {
+        this.show = show;
         let response = await axios({
           url: "/shows/search",
           method: "post",
