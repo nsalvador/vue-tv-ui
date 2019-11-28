@@ -1,9 +1,8 @@
 <template>
   <v-container>
-    <v-banner>{{ results }} results for {{ show }}</v-banner>
-    <v-row>
-      <v-col cols="12">
-        <v-pagination :length="pages" v-show="pages>1"></v-pagination>
+    <v-row v-show="pages>1">
+      <v-col>
+        <v-pagination :length="pages"></v-pagination>
       </v-col>
     </v-row>
     <v-row>

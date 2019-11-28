@@ -2,13 +2,8 @@
   <v-app>
     <v-content>
       <app-header @search="search" />
-      <app-results
-        :seriesObject="series"
-        :show="show"
-        v-show="Object.keys(series).length!==0"
-        v-if="!error"
-      />
-      <pre v-else>{{ error.name }}: {{error.message }}</pre>
+      <app-banner :banner="{error, series, show}" />
+      <app-results :seriesObject="series" :show="show" />
     </v-content>
   </v-app>
 </template>
@@ -16,6 +11,7 @@
 <script>
 import appHeader from "./components/Header.vue";
 import appResults from "./components/Search/Results.vue";
+import appBanner from "./components/Banner.vue";
 import axios from "axios";
 
 export default {
@@ -37,7 +33,11 @@ export default {
           method: "post",
           data: { show }
         });
-        this.series = response.data;
+        if (response.status === 200) {
+          this.series = response.data;
+        } else {
+          throw response;
+        }
       } catch (error) {
         this.error = error;
       }
@@ -45,7 +45,8 @@ export default {
   },
   components: {
     appHeader,
-    appResults
+    appResults,
+    appBanner
   }
 };
 </script>
