@@ -34,18 +34,19 @@ export default {
       this.error = null;
       try {
         this.show = show;
-        this.isLoaded = false;
         let response = await axios({
           url: "/shows/search",
           method: "post",
           data: { show }
         });
         if (response.status === 200) {
+          this.isLoaded = false;
           this.series = response.data;
         } else {
           throw response;
         }
       } catch (error) {
+        this.isLoaded = false;
         this.error = error;
       }
     }
