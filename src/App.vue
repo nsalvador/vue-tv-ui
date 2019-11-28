@@ -5,7 +5,7 @@
       <app-progress v-if="isLoaded" />
       <template v-else>
         <app-banner :banner="{error, series, show}" />
-        <app-results :seriesObject="series" :show="show" />
+        <app-results :seriesObject="series" :show="show" @next="search" />
       </template>
     </v-content>
   </v-app>
@@ -28,16 +28,16 @@ export default {
     };
   },
   methods: {
-    async search(show) {
+    async search(showObject) {
       this.series = {};
       this.isLoaded = true;
       this.error = null;
       try {
-        this.show = show;
+        this.show = showObject.show;
         let response = await axios({
-          url: "/shows/search",
+          url: `/shows/search?page=${showObject.page}`,
           method: "post",
-          data: { show }
+          data: { show: this.show }
         });
         if (response.status === 200) {
           this.isLoaded = false;

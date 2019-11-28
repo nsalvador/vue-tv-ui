@@ -16,7 +16,10 @@ export default {
   },
   methods: {
     search(show) {
-      this.$emit("search", show);
+      this.$emit("search", {
+        show,
+        page: "1"
+      });
     }
   }
 };

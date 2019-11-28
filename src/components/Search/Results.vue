@@ -2,7 +2,7 @@
   <v-container>
     <v-row v-show="pages>1">
       <v-col>
-        <v-pagination :length="pages"></v-pagination>
+        <v-pagination :length="pages" @input="next" v-model="page"></v-pagination>
       </v-col>
     </v-row>
     <v-row>
@@ -17,6 +17,16 @@
 import appImage from "../Image.vue";
 
 export default {
+  data() {
+    return {
+      page: this.seriesObject.page || 1
+    };
+  },
+  methods: {
+    next(page) {
+      this.$emit("next", { show: this.show, page });
+    }
+  },
   computed: {
     series() {
       return this.seriesObject.series || [];
