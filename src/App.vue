@@ -2,8 +2,11 @@
   <v-app>
     <v-content>
       <app-header @search="search" />
-      <app-banner :banner="{error, series, show}" />
-      <app-results :seriesObject="series" :show="show" />
+      <app-progress v-if="isLoaded" />
+      <template v-else>
+        <app-banner :banner="{error, series, show}" />
+        <app-results :seriesObject="series" :show="show" />
+      </template>
     </v-content>
   </v-app>
 </template>
@@ -12,6 +15,7 @@
 import appHeader from "./components/Header.vue";
 import appResults from "./components/Search/Results.vue";
 import appBanner from "./components/Banner.vue";
+import appProgress from "./components/Progress.vue";
 import axios from "axios";
 
 export default {
@@ -19,15 +23,18 @@ export default {
     return {
       show: "",
       series: {},
+      isLoaded: false,
       error: null
     };
   },
   methods: {
     async search(show) {
       this.series = {};
+      this.isLoaded = true;
       this.error = null;
       try {
         this.show = show;
+        this.isLoaded = false;
         let response = await axios({
           url: "/shows/search",
           method: "post",
@@ -46,7 +53,8 @@ export default {
   components: {
     appHeader,
     appResults,
-    appBanner
+    appBanner,
+    appProgress
   }
 };
 </script>
