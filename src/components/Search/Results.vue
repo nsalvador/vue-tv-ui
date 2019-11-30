@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-for="(show, index) in series" :key="index" cols="6" sm="3">
+      <v-col class="pa-1" v-for="(show, index) in series" :key="index" cols="6" sm="3">
         <app-image :show="show" />
       </v-col>
     </v-row>

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-content>
       <app-header @search="search" />
       <app-progress v-if="isLoaded" />
@@ -8,6 +8,7 @@
         <app-results :seriesObject="series" :show="show" @next="search" />
       </template>
     </v-content>
+    <app-footer></app-footer>
   </v-app>
 </template>
 
@@ -16,6 +17,7 @@ import appHeader from "./components/Header.vue";
 import appResults from "./components/Search/Results.vue";
 import appBanner from "./components/Banner.vue";
 import appProgress from "./components/Progress.vue";
+import appFooter from "./components/Footer.vue";
 import axios from "axios";
 
 export default {
@@ -32,19 +34,15 @@ export default {
       this.series = {};
       this.isLoaded = true;
       this.error = null;
+      this.show = showObject.show;
       try {
-        this.show = showObject.show;
         let response = await axios({
           url: `/shows/search?page=${showObject.page}`,
           method: "post",
-          data: { show: this.show }
+          data: { show: showObject.show }
         });
-        if (response.status === 200) {
-          this.isLoaded = false;
-          this.series = response.data;
-        } else {
-          throw response;
-        }
+        this.isLoaded = false;
+        this.series = response.data;
       } catch (error) {
         this.isLoaded = false;
         this.error = error;
@@ -55,7 +53,8 @@ export default {
     appHeader,
     appResults,
     appBanner,
-    appProgress
+    appProgress,
+    appFooter
   }
 };
 </script>
