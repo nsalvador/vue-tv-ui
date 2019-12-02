@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-0">
+  <v-container>
     <v-text-field
       append-icon="mdi-magnify"
       dense

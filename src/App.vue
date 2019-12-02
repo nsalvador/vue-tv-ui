@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-content>
       <app-header @search="search" />
       <app-progress v-if="isLoaded" />
@@ -21,14 +21,16 @@ import appFooter from "./components/Footer.vue";
 import axios from "axios";
 
 export default {
-  data() {
-    return {
-      show: "",
-      series: {},
-      isLoaded: false,
-      error: null
-    };
+  name: "App",
+  created() {
+    this.$vuetify.theme.dark = true;
   },
+  data: () => ({
+    show: "",
+    series: {},
+    isLoaded: false,
+    error: null
+  }),
   methods: {
     async search(showObject) {
       this.series = {};

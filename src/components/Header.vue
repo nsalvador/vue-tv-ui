@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
+  <v-container>
     <v-app-bar app>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <app-search @search="search" />
