@@ -7,6 +7,7 @@
         <app-banner :banner="{error, series, show}" />
         <app-results :seriesObject="series" :show="show" @next="search" />
       </template>
+      <pre>{{ output }}</pre>
     </v-content>
     <app-footer></app-footer>
   </v-app>
@@ -20,6 +21,10 @@ import appProgress from "./components/Progress.vue";
 import appFooter from "./components/Footer.vue";
 import axios from "axios";
 
+if (process.env.NODE_ENV === "production") {
+  axios.defaults.baseURL = "https://tv-calendar-api.herokuapp.com";
+}
+
 export default {
   name: "App",
   created() {
@@ -29,7 +34,8 @@ export default {
     show: "",
     series: {},
     isLoaded: false,
-    error: null
+    error: null,
+    output: process
   }),
   methods: {
     async search(showObject) {
