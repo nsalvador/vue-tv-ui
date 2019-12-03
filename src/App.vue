@@ -7,7 +7,6 @@
         <app-banner :banner="{error, series, show}" />
         <app-results :seriesObject="series" :show="show" @next="search" />
       </template>
-      <pre>{{ output }}</pre>
     </v-content>
     <app-footer></app-footer>
   </v-app>
@@ -34,8 +33,7 @@ export default {
     show: "",
     series: {},
     isLoaded: false,
-    error: null,
-    output: process
+    error: null
   }),
   methods: {
     async search(showObject) {
