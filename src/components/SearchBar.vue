@@ -15,11 +15,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      show: ""
-    };
-  },
+  name: "SearchBar",
+  data: () => ({
+    show: ""
+  }),
   methods: {
     search() {
       if (this.show !== "") {

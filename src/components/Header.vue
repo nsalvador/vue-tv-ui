@@ -1,16 +1,21 @@
 <template>
   <v-container>
     <v-app-bar app>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <app-search @search="search" />
+      <app-search @search="search" v-if="isVisible" />
     </v-app-bar>
   </v-container>
 </template>
 
 <script>
-import appSearch from "../components/Search/Search.vue";
+import appSearch from "./SearchBar.vue";
 
 export default {
+  name: "Header",
+  computed: {
+    isVisible() {
+      return this.$route.name == "search";
+    }
+  },
   components: {
     appSearch
   },

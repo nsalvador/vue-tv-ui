@@ -19,13 +19,12 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isSubscribed: true,
-      baseURL: "https://tv-calendar-assets.s3.us-east-2.amazonaws.com/",
-      noImage: "https://via.placeholder.com/680x1000.png?text=No+Image"
-    };
-  },
+  name: "Image",
+  data: () => ({
+    isSubscribed: true,
+    baseURL: "https://tv-calendar-assets.s3.us-east-2.amazonaws.com/",
+    noImage: "https://via.placeholder.com/680x1000.png?text=No+Image"
+  }),
   props: ["show"],
   methods: {
     getImage(show) {

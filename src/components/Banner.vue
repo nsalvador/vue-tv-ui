@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: "Banner",
   props: {
     banner: Object
   }

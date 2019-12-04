@@ -14,14 +14,13 @@
 </template>
 
 <script>
-import appImage from "../Image.vue";
+import appImage from "./Image.vue";
 
 export default {
-  data() {
-    return {
-      page: this.seriesObject.page || 1
-    };
-  },
+  name: "SearchResults",
+  data: () => ({
+    page: this.seriesObject.page || 1
+  }),
   methods: {
     next(page) {
       this.$emit("next", { show: this.show, page });
