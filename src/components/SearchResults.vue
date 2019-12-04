@@ -19,12 +19,15 @@ import appImage from "./Image.vue";
 export default {
   name: "SearchResults",
   data: () => ({
-    page: this.seriesObject.page || 1
+    page: null
   }),
   methods: {
     next(page) {
       this.$emit("next", { show: this.show, page });
     }
+  },
+  mounted() {
+    this.page = this.seriesObject.page || 1;
   },
   computed: {
     series() {
@@ -32,9 +35,6 @@ export default {
     },
     pages() {
       return this.seriesObject.pages || 0;
-    },
-    results() {
-      return this.seriesObject.results || 0;
     }
   },
   props: {

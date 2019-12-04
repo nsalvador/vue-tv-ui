@@ -19,7 +19,6 @@
 
 <script>
 export default {
-  name: "Image",
   data: () => ({
     isSubscribed: true,
     baseURL: "https://tv-calendar-assets.s3.us-east-2.amazonaws.com/",
