@@ -46,6 +46,7 @@ export default {
         if (this.$route.name === "home") {
           router.push({ name: "search" });
         }
+        this.$store.commit("setSeries", {});
         const config = {
           url: `/shows/search?page=1`,
           method: "post",
