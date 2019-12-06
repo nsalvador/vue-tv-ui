@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <app-header />
+    <app-drawer />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -11,6 +12,7 @@
 <script>
 // import AppFooter from "./components/Footer.vue";
 import AppHeader from "./components/Header.vue";
+import AppDrawer from "./components/Drawer.vue";
 
 export default {
   name: "App",
@@ -18,7 +20,8 @@ export default {
     this.$vuetify.theme.dark = true;
   },
   components: {
-    AppHeader
+    AppHeader,
+    AppDrawer
     // AppFooter
   }
 };

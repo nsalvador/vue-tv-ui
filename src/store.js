@@ -16,10 +16,6 @@ export default new Vuex.Store({
 			{
 				text: 'Home',
 				to: '/'
-			},
-			{
-				text: 'Search',
-				to: '/search'
 			}
 		]
 	},
@@ -29,6 +25,7 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setSeries: (state, series) => (state.series = series),
+		setDrawer: (state, payload) => (state.drawer = payload),
 		toggleDrawer: state => (state.drawer = !state.drawer)
 	},
 	actions: {

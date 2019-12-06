@@ -2,20 +2,20 @@
   <v-app-bar app flat>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-container class="mx-auto py-0">
-      <v-layout>
+      <v-layout align-center>
         <v-btn
           :to="link.to"
           v-for="(link, i) in links"
           :key="i"
-          class="hidden-sm-and-down"
+          class="ma-1 hidden-sm-and-down"
           text
         >{{ link.text }}</v-btn>
         <v-spacer></v-spacer>
         <v-text-field
-          v-show="isVisible"
           style="max-width: 300px;"
           append-icon="mdi-magnify"
           flat
+          placeholder="Search..."
           hide-details
           solo-inverted
           v-model="show"
@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-
+import router from "../router";
 export default {
   name: "Header",
   data: () => ({
@@ -37,15 +37,15 @@ export default {
     error: null
   }),
   computed: {
-    ...mapGetters(["links"]),
-    isVisible() {
-      return this.$route.name == "search";
-    }
+    ...mapGetters(["links"])
   },
   methods: {
     ...mapMutations(["toggleDrawer"]),
     async search() {
       try {
+        if (this.$route.name === "home") {
+          router.push({ name: "search" });
+        }
         const config = {
           url: `/shows/search?page=1`,
           method: "post",
