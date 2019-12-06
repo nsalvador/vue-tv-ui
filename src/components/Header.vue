@@ -1,46 +1,61 @@
 <template>
-  <v-container>
-    <v-app-bar app>
-      <v-spacer></v-spacer>
-      <app-search @search="search" v-if="isVisible" />
-      <v-toolbar-items>
-        <v-btn text @click="goToHome">Home</v-btn>
-        <v-btn text @click="goToSearch">Search</v-btn>
-      </v-toolbar-items>
-    </v-app-bar>
-  </v-container>
+  <v-app-bar app flat>
+    <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
+    <v-container class="mx-auto py-0">
+      <v-layout>
+        <v-btn
+          :to="link.to"
+          v-for="(link, i) in links"
+          :key="i"
+          class="hidden-sm-and-down"
+          text
+        >{{ link.text }}</v-btn>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-show="isVisible"
+          style="max-width: 300px;"
+          append-icon="mdi-magnify"
+          flat
+          hide-details
+          solo-inverted
+          v-model="show"
+          @click:append="search"
+          @keydown.enter="search"
+        />
+      </v-layout>
+    </v-container>
+  </v-app-bar>
 </template>
 
 <script>
-import appSearch from "./SearchBar.vue";
-import router from "../router";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Header",
+  data: () => ({
+    show: "",
+    error: null
+  }),
   computed: {
+    ...mapGetters(["links"]),
     isVisible() {
       return this.$route.name == "search";
     }
   },
-  components: {
-    appSearch
-  },
   methods: {
-    goToHome() {
-      if (this.$route.name === "search") {
-        router.push({ name: "home" });
+    ...mapMutations(["toggleDrawer"]),
+    async search() {
+      try {
+        const config = {
+          url: `/shows/search?page=1`,
+          method: "post",
+          data: { show: this.show }
+        };
+        this.show = "";
+        await this.$store.dispatch("search", config);
+      } catch (error) {
+        this.error = error;
       }
-    },
-    goToSearch() {
-      if (this.$route.name === "home") {
-        router.push({ name: "search" });
-      }
-    },
-    search(show) {
-      this.$emit("search", {
-        show,
-        page: "1"
-      });
     }
   }
 };

@@ -1,14 +1,9 @@
 <template>
-  <app-header />
+  <div></div>
 </template>
 
 <script>
-import appHeader from "../components/Header.vue";
-
 export default {
-  name: "Home",
-  components: {
-    appHeader
-  }
+  name: "Home"
 };
 </script>
