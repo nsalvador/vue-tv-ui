@@ -14,13 +14,15 @@
 import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["links"]),
+    ...mapGetters({
+      links: "getLinks"
+    }),
     drawer: {
       get() {
         return this.$store.state.drawer;
       },
-      set(val) {
-        this.setDrawer(val);
+      set(value) {
+        this.setDrawer(value);
       }
     }
   },

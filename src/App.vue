@@ -2,17 +2,16 @@
   <v-app>
     <app-header />
     <app-drawer />
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <app-view />
     <!-- <app-footer></app-footer>-->
   </v-app>
 </template>
 
 <script>
 // import AppFooter from "./components/Footer.vue";
-import AppHeader from "./components/Header.vue";
-import AppDrawer from "./components/Drawer.vue";
+import AppHeader from "./components/core/Header.vue";
+import AppDrawer from "./components/core/Drawer.vue";
+import AppView from "./components/core/View.vue";
 
 export default {
   name: "App",
@@ -21,7 +20,8 @@ export default {
   },
   components: {
     AppHeader,
-    AppDrawer
+    AppDrawer,
+    AppView
     // AppFooter
   }
 };

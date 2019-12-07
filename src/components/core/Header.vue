@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import router from "../router";
+import router from "../../router";
 export default {
   name: "Header",
   data: () => ({
@@ -37,9 +37,12 @@ export default {
     error: null
   }),
   computed: {
-    ...mapGetters(["links"])
+    ...mapGetters({
+      links: "getLinks"
+    })
   },
   methods: {
+    ...mapMutations(["setShow"]),
     ...mapMutations(["toggleDrawer"]),
     async search() {
       try {
@@ -48,9 +51,10 @@ export default {
         }
         this.$store.commit("setSeries", {});
         const config = {
-          url: `/shows/search?page=1`,
+          url: "/shows/search",
           method: "post",
-          data: { show: this.show }
+          data: { show: this.show },
+          params: { page: 1 }
         };
         this.show = "";
         await this.$store.dispatch("search", config);
