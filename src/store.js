@@ -21,7 +21,7 @@ export default new Vuex.Store({
 	},
 	getters: {
 		links: state => state.items,
-		series: state => state.series
+		getSeries: state => state.series
 	},
 	mutations: {
 		setSeries: (state, series) => (state.series = series),
