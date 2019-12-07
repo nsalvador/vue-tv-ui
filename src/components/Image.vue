@@ -5,13 +5,9 @@
     </v-responsive>
     <v-card-actions>
       <span class="text-truncate" :title="show.seriesName">{{ show.seriesName }}</span>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn icon class="px-0">
         <v-icon>mdi-information-outline</v-icon>
-      </v-btn>
-      <v-btn icon @click="subscribe" class="ma-0 px-0">
-        <v-icon v-if="isSubscribed">mdi-plus-circle-outline</v-icon>
-        <v-icon v-else>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
