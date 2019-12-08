@@ -1,8 +1,8 @@
 <template>
-  <v-container v-if="pages>1">
+  <v-container class="py-0">
     <v-row>
       <v-col>
-        <v-pagination v-model="page" :length="pages"></v-pagination>
+        <v-pagination v-model="page" :length="series.pages" @input="search"></v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -22,11 +22,19 @@ export default {
       }
     },
     ...mapGetters({
-      pages: "getPages"
+      series: "getSeries"
     })
   },
   methods: {
-    ...mapMutations(["setPage"])
+    ...mapMutations(["setPage"]),
+    search() {
+      this.$store.dispatch("search", {
+        url: "/shows/search",
+        method: "post",
+        data: { show: this.series.name },
+        params: { page: this.page }
+      });
+    }
   }
 };
 </script>

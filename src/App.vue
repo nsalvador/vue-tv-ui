@@ -3,15 +3,15 @@
     <app-header />
     <app-drawer />
     <app-view />
-    <!-- <app-footer></app-footer>-->
+    <app-footer />
   </v-app>
 </template>
 
 <script>
-// import AppFooter from "./components/Footer.vue";
 import AppHeader from "./components/core/Header.vue";
 import AppDrawer from "./components/core/Drawer.vue";
 import AppView from "./components/core/View.vue";
+import AppFooter from "./components/core/Footer.vue";
 
 export default {
   name: "App",
@@ -21,8 +21,8 @@ export default {
   components: {
     AppHeader,
     AppDrawer,
-    AppView
-    // AppFooter
+    AppView,
+    AppFooter
   }
 };
 </script>

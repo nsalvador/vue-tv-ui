@@ -16,17 +16,15 @@
 <script>
 export default {
   data: () => ({
-    isSubscribed: true,
     baseURL: "https://tv-calendar-assets.s3.us-east-2.amazonaws.com/",
-    noImage: "https://via.placeholder.com/680x1000.png?text=No+Image"
+    noImageURL: "https://via.placeholder.com/680x1000.png?text=No+Image"
   }),
   props: ["show"],
   methods: {
     getImage(show) {
-      return show.posterKey ? `${this.baseURL}${show.posterKey}` : this.noImage;
-    },
-    subscribe() {
-      this.isSubscribed = !this.isSubscribed;
+      return show.posterKey
+        ? `${this.baseURL}${show.posterKey}`
+        : this.noImageURL;
     }
   }
 };

@@ -33,8 +33,7 @@ import router from "../../router";
 export default {
   name: "Header",
   data: () => ({
-    show: "",
-    error: null
+    show: ""
   }),
   computed: {
     ...mapGetters({
@@ -44,23 +43,20 @@ export default {
   methods: {
     ...mapMutations(["setShow"]),
     ...mapMutations(["toggleDrawer"]),
-    async search() {
-      try {
-        if (this.$route.name === "home") {
-          router.push({ name: "search" });
-        }
-        this.$store.commit("setSeries", {});
-        const config = {
-          url: "/shows/search",
-          method: "post",
-          data: { show: this.show },
-          params: { page: 1 }
-        };
-        this.show = "";
-        await this.$store.dispatch("search", config);
-      } catch (error) {
-        this.error = error;
+    search() {
+      if (this.$route.name === "home") {
+        router.push({ name: "search" });
       }
+      this.$store.commit("setSeries", {});
+      this.$store.commit("setError", null);
+      this.$store.commit("setLoading", true);
+      this.$store.dispatch("search", {
+        url: "/shows/search",
+        method: "post",
+        data: { show: this.show },
+        params: { page: 1 }
+      });
+      this.show = "";
     }
   }
 };
