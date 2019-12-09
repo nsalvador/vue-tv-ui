@@ -9,9 +9,10 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
+  name: "Pagination",
   computed: {
     page: {
       get() {
@@ -21,9 +22,7 @@ export default {
         this.setPage(value);
       }
     },
-    ...mapGetters({
-      series: "getSeries"
-    })
+    ...mapState(["series"])
   },
   methods: {
     ...mapMutations(["setPage"]),

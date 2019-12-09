@@ -23,10 +23,8 @@ export default new Vuex.Store({
 		loading: false
 	},
 	getters: {
-		getLinks: state => state.links,
 		getSeries: state => state.series,
-		getError: state => state.error,
-		getLoading: state => state.loading
+		getError: state => state.error
 	},
 	mutations: {
 		setSeries: (state, series) => (state.series = series),
@@ -39,8 +37,9 @@ export default new Vuex.Store({
 	actions: {
 		async search({ commit }, config) {
 			try {
-				let response = await axios(config);
+				const response = await axios(config);
 				commit('setSeries', response.data);
+				commit('setPage', response.data.page);
 			} catch (error) {
 				commit('setError', error);
 			}

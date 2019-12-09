@@ -11,13 +11,11 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters({
-      links: "getLinks"
-    }),
+    ...mapState(["links"]),
     drawer: {
       get() {
         return this.$store.state.drawer;

@@ -10,7 +10,7 @@
 
 <script>
 import AppImage from "./Image.vue";
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Results",
@@ -18,9 +18,7 @@ export default {
     AppImage
   },
   computed: {
-    ...mapGetters({
-      series: "getSeries"
-    })
+    ...mapState(["series"])
   }
 };
 </script>
