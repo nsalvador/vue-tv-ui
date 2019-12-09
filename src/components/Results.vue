@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pt-0">
     <v-row dense>
       <v-col v-for="(show, index) in series.series" :key="index" cols="6" sm="3" xl="2">
         <app-image :show="show" />
