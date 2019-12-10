@@ -5,7 +5,7 @@ import axios from 'axios';
 Vue.use(Vuex);
 
 if (process.env.NODE_ENV === 'production') {
-	axios.defaults.baseURL = 'https://tv-calendar-api.herokuapp.com';
+	axios.defaults.baseURL = 'https://vue-tv-api.herokuapp.com';
 }
 
 export default new Vuex.Store({
