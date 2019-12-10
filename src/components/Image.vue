@@ -6,9 +6,9 @@
     <v-card-actions>
       <span class="text-truncate" :title="show.seriesName">{{ show.seriesName }}</span>
       <v-spacer />
-      <v-btn icon class="px-0">
+      <!-- <v-btn icon class="px-0">
         <v-icon>mdi-information-outline</v-icon>
-      </v-btn>
+      </v-btn>-->
     </v-card-actions>
   </v-card>
 </template>

@@ -19,15 +19,15 @@
         hide-details
         solo-inverted
         v-model="show"
-        @click:append="search"
-        @keydown.enter="search"
+        @click:append="searchHandle"
+        @keydown.enter="searchHandle"
       />
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import router from "../../router";
 
 export default {
@@ -39,15 +39,16 @@ export default {
     ...mapState(["links"])
   },
   methods: {
-    ...mapMutations(["toggleDrawer"]),
-    search() {
+    ...mapMutations(["toggleDrawer", "setSeries", "setError", "setLoading"]),
+    ...mapActions(["search"]),
+    searchHandle() {
       if (this.$route.name === "home") {
         router.push({ name: "search" });
       }
-      this.$store.commit("setSeries", {});
-      this.$store.commit("setError", null);
-      this.$store.commit("setLoading", true);
-      this.$store.dispatch("search", {
+      this.setSeries({});
+      this.setError(null);
+      this.setLoading(true);
+      this.search({
         url: "/shows/search",
         method: "post",
         data: { show: this.show },

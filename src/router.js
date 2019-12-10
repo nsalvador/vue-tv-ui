@@ -22,5 +22,5 @@ const routes = [
 export default new VueRouter({
 	mode: 'history',
 	routes,
-	base: process.env.NODE_ENV === 'production' ? '/tv-calendar-app-client/' : '/'
+	base: process.env.NODE_ENV === 'production' ? '/vue-tv-ui/' : '/'
 });
