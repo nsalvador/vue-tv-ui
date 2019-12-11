@@ -9,13 +9,12 @@
 </template>
 
 <script>
-import AppImage from "./Image.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "Results",
   components: {
-    AppImage
+    AppImage: () => import("./Image.vue")
   },
   computed: {
     ...mapState(["series"])

@@ -10,10 +10,6 @@
 </template>
 
 <script>
-import AppResults from "../components/Results.vue";
-import AppPagination from "../components/Pagination.vue";
-import AppBanner from "../components/Banner.vue";
-import AppProgress from "../components/Progress.vue";
 import { mapState, mapGetters } from "vuex";
 
 export default {
@@ -26,10 +22,10 @@ export default {
     })
   },
   components: {
-    AppResults,
-    AppPagination,
-    AppBanner,
-    AppProgress
+    AppResults: () => import("../components/Results.vue"),
+    AppPagination: () => import("../components/Pagination.vue"),
+    AppBanner: () => import("../components/Banner.vue"),
+    AppProgress: () => import("../components/Progress.vue")
   }
 };
 </script>
