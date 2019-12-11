@@ -8,21 +8,24 @@
 </template>
 
 <script>
-import AppHeader from "./components/core/Header.vue";
-import AppDrawer from "./components/core/Drawer.vue";
-import AppView from "./components/core/View.vue";
-import AppFooter from "./components/core/Footer.vue";
+import router from "./router";
 
 export default {
   name: "App",
   created() {
     this.$vuetify.theme.dark = true;
   },
+  mounted() {
+    const route = sessionStorage.getItem("route");
+    if (route) {
+      router.push({ name: route });
+    }
+  },
   components: {
-    AppHeader,
-    AppDrawer,
-    AppView,
-    AppFooter
+    AppHeader: () => import("./components/core/Header.vue"),
+    AppDrawer: () => import("./components/core/Drawer.vue"),
+    AppView: () => import("./components/core/View.vue"),
+    AppFooter: () => import("./components/core/Footer.vue")
   }
 };
 </script>

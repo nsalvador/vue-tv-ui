@@ -7,12 +7,20 @@ const routes = [
 	{
 		path: '/',
 		component: () => import('./pages/Home.vue'),
-		name: 'home'
+		name: 'home',
+		beforeEnter(to, from, next) {
+			sessionStorage.removeItem('route');
+			next();
+		}
 	},
 	{
 		path: '/search',
 		component: () => import('./pages/Search.vue'),
-		name: 'search'
+		name: 'search',
+		beforeEnter(to, from, next) {
+			sessionStorage.setItem('route', to.name);
+			next();
+		}
 	}
 ];
 
