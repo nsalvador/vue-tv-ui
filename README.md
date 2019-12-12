@@ -1,24 +1,3 @@
-# frontend
+# vue-tv-ui
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### A television show search engine that was built using [Vue.js](https://vuejs.org/) & [Vuetify](https://vuetifyjs.com/en/). It uses the [vue-tv-api](http://vue-tv-api.herokuapp.com/) API.
