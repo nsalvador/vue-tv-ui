@@ -8,19 +8,14 @@
 </template>
 
 <script>
-import router from "./router";
+// import router from "./router";
 
 export default {
   name: "App",
   created() {
     this.$vuetify.theme.dark = true;
   },
-  mounted() {
-    const route = localStorage.getItem("route");
-    if (route) {
-      router.push({ name: route });
-    }
-  },
+  mounted() {},
   components: {
     AppHeader: () => import("./components/core/Header.vue"),
     AppDrawer: () => import("./components/core/Drawer.vue"),
