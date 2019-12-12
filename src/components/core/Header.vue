@@ -42,7 +42,7 @@ export default {
     ...mapMutations(["toggleDrawer", "setSeries", "setError", "setLoading"]),
     ...mapActions(["search"]),
     searchHandle() {
-      if (this.$route.name === "home") {
+      if (this.$route.name == "home") {
         router.push({ name: "search" });
       }
       this.setSeries({});

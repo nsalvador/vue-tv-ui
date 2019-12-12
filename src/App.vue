@@ -16,7 +16,7 @@ export default {
     this.$vuetify.theme.dark = true;
   },
   mounted() {
-    const route = sessionStorage.getItem("route");
+    const route = localStorage.getItem("route");
     if (route) {
       router.push({ name: route });
     }

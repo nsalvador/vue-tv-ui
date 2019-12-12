@@ -9,7 +9,7 @@ const routes = [
 		component: () => import('./pages/Home.vue'),
 		name: 'home',
 		beforeEnter(to, from, next) {
-			sessionStorage.removeItem('route');
+			localStorage.removeItem('route');
 			next();
 		}
 	},
@@ -18,7 +18,7 @@ const routes = [
 		component: () => import('./pages/Search.vue'),
 		name: 'search',
 		beforeEnter(to, from, next) {
-			sessionStorage.setItem('route', to.name);
+			localStorage.setItem('route', to.name);
 			next();
 		}
 	}
