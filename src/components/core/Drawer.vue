@@ -15,7 +15,6 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["links"]),
     drawer: {
       get() {
         return this.$store.state.drawer;
@@ -23,7 +22,8 @@ export default {
       set(value) {
         this.setDrawer(value);
       }
-    }
+    },
+    ...mapState(["links"])
   },
   methods: {
     ...mapMutations(["setDrawer"])
