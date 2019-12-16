@@ -13,7 +13,9 @@ export default {
   created() {
     this.$vuetify.theme.dark = true;
   },
-  mounted() {},
+  mounted() {
+    document.documentElement.style.overflow = "auto";
+  },
   components: {
     AppHeader: () => import("./components/core/Header.vue"),
     AppDrawer: () => import("./components/core/Drawer.vue"),
