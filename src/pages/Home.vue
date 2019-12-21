@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <v-container fill-height class="justify-center">
+    <v-btn large>Start</v-btn>
+  </v-container>
 </template>
 
 <script>
