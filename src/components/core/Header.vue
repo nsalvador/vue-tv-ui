@@ -9,6 +9,8 @@
         class="ma-1 hidden-sm-and-down"
         text
         v-text="link.text"
+        v-show="link.text=='Home' || (link.text=='Start' && !started) || (link.text=='Finish' && started)"
+        @click="onClick(link)"
       />
       <v-spacer />
       <v-text-field
@@ -19,8 +21,8 @@
         hide-details
         solo-inverted
         v-model="show"
-        @click:append="searchHandle"
-        @keydown.enter="searchHandle"
+        @click:append="onClickAppend"
+        @keydown.enter="onKeyDown"
       />
     </v-container>
   </v-app-bar>
@@ -36,12 +38,43 @@ export default {
     show: ""
   }),
   computed: {
-    ...mapState(["links"])
+    ...mapState(["links", "started"])
   },
   methods: {
-    ...mapMutations(["toggleDrawer", "setSeries", "setError", "setLoading"]),
-    ...mapActions(["search"]),
-    searchHandle() {
+    ...mapMutations([
+      "toggleDrawer",
+      "setSeries",
+      "setError",
+      "setLoading",
+      "setStarted"
+    ]),
+    ...mapActions(["search", "createUser", "logoutUser"]),
+    onClick(item) {
+      if (item.text === "Start") {
+        this.createUser({
+          url: "/users",
+          method: "post",
+          data: {
+            email: "nigelsalvador@gmail.com",
+            password: "mrch0305"
+          }
+        });
+      }
+      if (item.text === "Finish") {
+        const token = sessionStorage.getItem("token");
+        this.logoutUser({
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          url: "/users/logout",
+          method: "post"
+        });
+      }
+    },
+    onKeyDown() {
+      this.onClickAppend();
+    },
+    onClickAppend() {
       if (this.$route.name == "home") {
         router.push({ name: "search" });
       }
