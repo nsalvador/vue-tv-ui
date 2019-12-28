@@ -19,10 +19,13 @@ export default new Vuex.Store({
 				to: '/'
 			},
 			{
-				text: 'Start'
+				text: 'Sign Up'
 			},
 			{
-				text: 'Finish'
+				text: 'Log In'
+			},
+			{
+				text: 'Log Out'
 			}
 		],
 		page: 1,
