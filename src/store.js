@@ -13,6 +13,8 @@ export default new Vuex.Store({
 		series: {},
 		started: false,
 		drawer: false,
+		dialog: false,
+		dialogTitle: '',
 		links: [
 			{
 				text: 'Home',
@@ -43,7 +45,9 @@ export default new Vuex.Store({
 		setError: (state, payload) => (state.error = payload),
 		setLoading: (state, payload) => (state.loading = payload),
 		setStarted: (state, payload) => (state.started = payload),
-		toggleDrawer: state => (state.drawer = !state.drawer)
+		toggleDrawer: state => (state.drawer = !state.drawer),
+		setDialog: (state, payload) => (state.dialog = payload),
+		setDialogTitle: (state, payload) => (state.dialogTitle = payload)
 	},
 	actions: {
 		async createUser({ commit }, config) {

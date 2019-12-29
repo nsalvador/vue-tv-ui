@@ -9,63 +9,10 @@
         class="ma-1 hidden-sm-and-down"
         text
         v-text="link.text"
-        v-show="
-					link.text == 'Home' ||
-						link.text == 'Sign Up' ||
-						link.text == 'Log In' ||
-						(link.text == 'Log Out' && started)
-				"
+        v-show="showButton(link)"
         @click.stop="onClick(link)"
       />
-
-      <v-dialog v-model="signUpDialog" persistent width="25%">
-        <v-card>
-          <v-toolbar flat>
-            <v-toolbar-title class="text-uppercase">Sign Up</v-toolbar-title>
-            <v-spacer />
-            <v-btn icon @click="signUpDialog=false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-divider />
-          <v-card-text class="pt-5">
-            <v-text-field label="E-mail"></v-text-field>
-            <v-text-field label="Password"></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn block>Sign Up</v-btn>
-          </v-card-actions>
-          <v-divider />
-          <v-card-actions class="d-flex justify-center">
-            <v-btn text class="overline" @click="logIn">Log In</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <v-dialog v-model="logInDialog" persistent width="25%">
-        <v-card>
-          <v-toolbar flat>
-            <v-toolbar-title class="text-uppercase">Log In</v-toolbar-title>
-            <v-spacer />
-            <v-btn icon @click="logInDialog=false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-divider />
-          <v-card-text class="pt-5">
-            <v-text-field label="E-mail"></v-text-field>
-            <v-text-field label="Password"></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn block>Log In</v-btn>
-          </v-card-actions>
-          <v-divider />
-          <v-card-actions class="d-flex justify-center">
-            <v-btn text class="overline" @click="signUp">Sign Up</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
+      <app-start-dialog />
       <v-spacer />
       <v-text-field
         style="max-width: 300px;"
@@ -85,44 +32,40 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import router from "../../router";
+import showButtonMixin from "../../mixins/showButtonMixin";
+import onClickMixin from "../../mixins/onClickMixin";
 
 export default {
   name: "Header",
+  components: {
+    AppStartDialog: () => import("../../components/StartDialog.vue")
+  },
+  mixins: [showButtonMixin, onClickMixin],
   data: () => ({
-    show: "",
-    signUpDialog: false,
-    logInDialog: false
+    show: ""
   }),
   computed: {
-    ...mapState(["links", "started"])
+    dialog: {
+      get() {
+        return this.$store.state.dialog;
+      },
+      set(value) {
+        this.setDialog(value);
+      }
+    },
+    ...mapState(["links", "started", "drawer"])
   },
   methods: {
-    logIn() {
-      this.signUpDialog = false;
-      this.logInDialog = true;
-    },
-    signUp() {
-      this.logInDialog = false;
-      this.signUpDialog = true;
-    },
     ...mapMutations([
       "toggleDrawer",
       "setSeries",
       "setError",
       "setLoading",
-      "setStarted"
+      "setStarted",
+      "setDialog",
+      "setDialogTitle"
     ]),
     ...mapActions(["search", "createUser", "logoutUser"]),
-    onClick(item) {
-      switch (item.text) {
-        case "Sign Up":
-          this.signUpDialog = true;
-          break;
-        case "Log In":
-          this.logInDialog = true;
-          break;
-      }
-    },
     onKeyDown() {
       this.onClickAppend();
     },

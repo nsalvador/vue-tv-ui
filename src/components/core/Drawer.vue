@@ -1,7 +1,13 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app temporary>
+  <v-navigation-drawer v-model="drawer" app>
     <v-list>
-      <v-list-item v-for="(link, i) in links" :key="i" :to="link.to">
+      <v-list-item
+        v-for="(link, i) in links"
+        :key="i"
+        :to="link.to"
+        v-show="showButton(link)"
+        @click.stop="onClick(link)"
+      >
         <v-list-item-content>
           <v-list-item-title v-text="link.text" />
         </v-list-item-content>
@@ -12,8 +18,12 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import showButtonMixin from "../../mixins/showButtonMixin";
+import onClickMixin from "../../mixins/onClickMixin";
 
 export default {
+  name: "Drawer",
+  mixins: [showButtonMixin, onClickMixin],
   computed: {
     drawer: {
       get() {
@@ -23,10 +33,23 @@ export default {
         this.setDrawer(value);
       }
     },
-    ...mapState(["links"])
+    dialog: {
+      get() {
+        return this.$store.state.dialog;
+      },
+      set(value) {
+        this.setDialog(value);
+      }
+    },
+    ...mapState(["links", "started"])
   },
   methods: {
-    ...mapMutations(["setDrawer"])
+    ...mapMutations([
+      "setDrawer",
+      "setDialog",
+      "setDialogTitle",
+      "toggleDrawer"
+    ])
   }
 };
 </script>
