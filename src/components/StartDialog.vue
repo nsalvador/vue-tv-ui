@@ -22,23 +22,10 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "Sign-Up-Dialog",
   computed: {
-    btnText() {
-      let output;
-      switch (this.title) {
-        case "Sign Up":
-          output = "Log In";
-          break;
-        case "Log In":
-          output = "Sign Up";
-          break;
-        default:
-          output = "";
-      }
-      return output;
-    },
     ...mapState({ title: "dialogTitle" }),
     dialog: {
       get() {

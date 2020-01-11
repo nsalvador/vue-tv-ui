@@ -45,6 +45,7 @@ export default {
     show: ""
   }),
   computed: {
+    ...mapState(["links", "started", "drawer"]),
     dialog: {
       get() {
         return this.$store.state.dialog;
@@ -52,8 +53,7 @@ export default {
       set(value) {
         this.setDialog(value);
       }
-    },
-    ...mapState(["links", "started", "drawer"])
+    }
   },
   methods: {
     ...mapMutations([

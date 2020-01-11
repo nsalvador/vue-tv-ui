@@ -4,22 +4,10 @@ export default {
 			if (this.drawer) {
 				this.toggleDrawer();
 			}
-			let text;
-			switch (link.text) {
-				case 'Sign Up':
-					{
-						text = link.text;
-						this.dialog = true;
-					}
-					break;
-				case 'Log In':
-					{
-						text = link.text;
-						this.dialog = true;
-					}
-					break;
+			if (link.text == 'Sign Up' || link.text == 'Log In') {
+				this.setDialogTitle(link.text);
+				this.dialog = true;
 			}
-			this.setDialogTitle(text);
 		}
 	}
 };

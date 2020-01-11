@@ -25,6 +25,7 @@ export default {
   name: "Drawer",
   mixins: [showButtonMixin, onClickMixin],
   computed: {
+    ...mapState(["links", "started"]),
     drawer: {
       get() {
         return this.$store.state.drawer;
@@ -40,8 +41,7 @@ export default {
       set(value) {
         this.setDialog(value);
       }
-    },
-    ...mapState(["links", "started"])
+    }
   },
   methods: {
     ...mapMutations([
