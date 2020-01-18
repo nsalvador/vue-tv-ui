@@ -21,11 +21,12 @@ export default new Vuex.Store({
 				to: '/'
 			},
 			{
-				text: 'Sign Up'
+				text: 'Sign Up',
+				to: '/sign-up'
 			},
-			{
-				text: 'Log In'
-			},
+			// {
+			// 	text: 'Log In'
+			// },
 			{
 				text: 'Log Out'
 			}

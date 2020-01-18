@@ -26,7 +26,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "Sign-Up-Dialog",
   computed: {
-    ...mapState({ title: "dialogTitle" }),
+    // ...mapState({ title: "dialogTitle" }),
     dialog: {
       get() {
         return this.$store.state.dialog;
