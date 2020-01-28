@@ -12,7 +12,6 @@
         v-show="showButton(link)"
         @click.stop="onClick(link)"
       />
-      <!-- <app-start-dialog /> -->
       <v-spacer />
       <v-text-field
         style="max-width: 300px;"
@@ -37,11 +36,6 @@ import onClickMixin from "../../mixins/onClickMixin";
 
 export default {
   name: "Header",
-  /*
-  components: {
-    AppStartDialog: () => import("../../components/StartDialog.vue")
-  },
-  */
   mixins: [showButtonMixin, onClickMixin],
   data: () => ({
     show: ""
@@ -72,19 +66,21 @@ export default {
       this.onClickAppend();
     },
     onClickAppend() {
-      if (this.$route.name == "home" || this.$route.name == "sign-up") {
-        router.push({ name: "search" });
+      if (this.show) {
+        if (this.$route.name == "home" || this.$route.name == "sign-up") {
+          router.push({ name: "search" });
+        }
+        this.setSeries({});
+        this.setError(null);
+        this.setLoading(true);
+        this.search({
+          url: "/shows/search",
+          method: "post",
+          data: { show: this.show },
+          params: { page: 1 }
+        });
+        this.show = "";
       }
-      this.setSeries({});
-      this.setError(null);
-      this.setLoading(true);
-      this.search({
-        url: "/shows/search",
-        method: "post",
-        data: { show: this.show },
-        params: { page: 1 }
-      });
-      this.show = "";
     }
   }
 };
