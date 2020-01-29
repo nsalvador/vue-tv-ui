@@ -19,17 +19,17 @@ export default new Vuex.Store({
 			{
 				text: 'Home',
 				to: '/'
-			},
-			{
-				text: 'Sign Up',
-				to: '/sign-up'
-			},
+			}
+			// {
+			// 	text: 'Sign Up',
+			// 	to: '/sign-up'
+			// },
 			// {
 			// 	text: 'Log In'
 			// },
-			{
-				text: 'Log Out'
-			}
+			// {
+			// 	text: 'Log Out'
+			// }
 		],
 		page: 1,
 		error: null,
