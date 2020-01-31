@@ -42,7 +42,6 @@
           <v-btn @click="clear">clear</v-btn>
         </v-card-actions>
       </v-card>
-      <pre v-show="isSubmitted">{ "name": "{{ name }}", "email": "{{ email }}", "password": "{{ password }}" }</pre>
     </v-form>
   </v-container>
 </template>

@@ -16,8 +16,15 @@ const routes = [
 	},
 	{
 		path: '/sign-up',
-		component: () => import('./pages/SignUp.vue'),
-		name: 'sign-up'
+		component: () => import('./components/Form.vue'),
+		name: 'sign-up',
+		props: { page: 'Sign Up' }
+	},
+	{
+		path: '/login',
+		component: () => import('./components/Form.vue'),
+		name: 'login',
+		props: { page: 'Log In' }
 	}
 ];
 

@@ -1,16 +1,26 @@
 <template>
-  <div class="d-flex justify-center align-center fill-height">
-    <v-container>
-      <v-card max-width="300" style="margin:0 auto;">
-        <v-card-title style="justify-content:center">Vue TV Application</v-card-title>
-        <v-card-text class="text-center">Search and subscribe to your favorite TV shows.</v-card-text>
-        <v-divider />
-        <v-card-actions>
-          <v-btn>sign up</v-btn>
-          <v-spacer />
-          <v-btn>log in</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-container>
+  <div class="d-flex fill-height justify-center align-center">
+    <v-card width="300">
+      <v-card-title style="justify-content:center;">Vue TV App</v-card-title>
+      <v-card-text class="text-center">Search and subscribe to your favorite TV Shows.</v-card-text>
+      <v-divider />
+      <v-card-actions>
+        <v-btn @click="onClick('sign-up')">sign up</v-btn>
+        <v-spacer />
+        <v-btn @click="onClick('login')">log in</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
+
+<script>
+import router from "../router";
+
+export default {
+  methods: {
+    onClick(name) {
+      router.push({ name });
+    }
+  }
+};
+</script>
