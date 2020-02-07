@@ -12,7 +12,7 @@
 export default {
   name: "Footer",
   data: () => ({
-    text: `Copyright &copy; ${new Date().getFullYear()}. Nigel Salvador, Full Stack Web Developer<br/>Proudly build with <a target='_blank' href='https://vuejs.org/'>Vue.js</a> &amp; <a target='_blank' href='https://vuetifyjs.com/en/'>Vuetify</a>`
+    text: `Copyright &copy; ${new Date().getFullYear()}<br/>Nigel Salvador, Full Stack Web Developer<br/>Built with <a target='_blank' href='https://vuejs.org/'>Vue.js</a> &amp; <a target='_blank' href='https://vuetifyjs.com/en/'>Vuetify</a>`
   })
 };
 </script>

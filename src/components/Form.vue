@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
     <v-card width="300">
-      <v-toolbar color="grey darken-4" flat dense>
+      <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title>{{ page }}</v-toolbar-title>
       </v-toolbar>
-      <v-card-text>
+      <v-card-text class="pb-0">
         <v-text-field
           clearable
           label="Name"
@@ -36,18 +36,27 @@
           :error-messages="passwordErrors"
         />
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="px-4 pb-4">
         <v-btn>{{page}}</v-btn>
         <v-spacer />
         <v-btn @click="clear">clear</v-btn>
       </v-card-actions>
       <v-divider />
+      <v-card-text class="text-center" v-if="page=='Sign Up'">
+        Already have an account?
+        <a @click="onClickHandler">Log In</a>
+      </v-card-text>
+      <v-card-text class="text-center" v-else-if="page=='Log In'">
+        Don't have an account?
+        <a @click="onClickHandler">Sign Up</a>
+      </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
+import router from "../router";
 
 export default {
   props: {
@@ -66,7 +75,21 @@ export default {
     email: "",
     password: ""
   }),
+
   computed: {
+    // cardDisplay() {
+    //   let output;
+    //   switch (this.page) {
+    //     case "Sign Up":
+    //       output =
+    //         "Already have an account? <a @click='onClickHandler'>Log In</a>";
+    //       break;
+    //     case "Log In":
+    //       output =
+    //         "Don't have an account? <a @click='onClickHandler'>Sign Up</a>";
+    //   }
+    //   return output;
+    // },
     nameErrors() {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
@@ -90,6 +113,18 @@ export default {
     }
   },
   methods: {
+    onClickHandler() {
+      let name;
+      switch (this.page) {
+        case "Sign Up":
+          name = "login";
+          break;
+        case "Log In":
+          name = "sign-up";
+          break;
+      }
+      router.push({ name });
+    },
     clear() {
       this.$v.$reset();
       this.name = "";

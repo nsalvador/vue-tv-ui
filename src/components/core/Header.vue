@@ -67,9 +67,7 @@ export default {
     },
     onClickAppend() {
       if (this.show) {
-        if (this.$route.name == "home" || this.$route.name == "sign-up") {
-          router.push({ name: "search" });
-        }
+        router.push({ name: "search" });
         this.setSeries({});
         this.setError(null);
         this.setLoading(true);
