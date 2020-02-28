@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from './store';
 
 Vue.use(VueRouter);
 
@@ -15,21 +16,48 @@ const routes = [
 		name: 'search'
 	},
 	{
-		path: '/sign-up',
+		path: '/register',
 		component: () => import('./components/Form.vue'),
-		name: 'sign-up',
-		props: { page: 'Sign Up' }
+		name: 'register',
+		props: { page: 'Register' }
 	},
 	{
 		path: '/login',
 		component: () => import('./components/Form.vue'),
 		name: 'login',
 		props: { page: 'Log In' }
+	},
+	{
+		path: '/subscription',
+		component: () => import('./components/Subscription.vue'),
+		name: 'subscription',
+		meta: {
+			requiresAuth: true
+		}
 	}
 ];
 
-export default new VueRouter({
+let router = new VueRouter({
 	mode: 'history',
 	routes,
-	base: process.env.NODE_ENV === 'production' ? '/vue-tv-ui/' : '/'
+	base: process.env.NODE_ENV === 'production' ? '/vue-tv-ui' : '/'
 });
+
+router.beforeEach((to, from, next) => {
+	if (to.matched.some(record => record.meta.requiresAuth)) {
+		if (store.getters.isLoggedIn) {
+			return next();
+		}
+		next({ name: '/login' });
+	} else {
+		next();
+	}
+});
+
+export default router;
+
+// export default new VueRouter({
+// 	mode: 'history',
+// 	routes,
+// 	base: process.env.NODE_ENV === 'production' ? '/vue-tv-ui/' : '/'
+// });

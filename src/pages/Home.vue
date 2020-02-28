@@ -3,12 +3,12 @@
     <v-card width="300">
       <v-card-title style="justify-content:center;">Vue TV App</v-card-title>
       <v-card-text class="text-center">Search and subscribe to your favorite TV Shows.</v-card-text>
-      <v-divider />
+      <!-- <v-divider />
       <v-card-actions>
-        <v-btn @click="onClick('sign-up')">sign up</v-btn>
+        <v-btn @click="onClick('register')">sign up</v-btn>
         <v-spacer />
         <v-btn @click="onClick('login')">log in</v-btn>
-      </v-card-actions>
+      </v-card-actions>-->
     </v-card>
   </div>
 </template>
