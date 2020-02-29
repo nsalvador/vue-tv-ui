@@ -39,7 +39,7 @@
       <v-card-actions class="px-4 pb-4">
         <v-btn @click="submitHandler">{{page}}</v-btn>
         <v-spacer />
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn @click="clearHandler">clear</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -103,7 +103,7 @@ export default {
         }
       }
     },
-    clear() {
+    clearHandler() {
       this.$v.$reset();
       this.user = new User();
     }

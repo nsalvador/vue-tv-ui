@@ -17,13 +17,13 @@ const routes = [
 	},
 	{
 		path: '/register',
-		component: () => import('./components/Form.vue'),
+		component: () => import('./pages/Register.vue'),
 		name: 'register',
 		props: { page: 'Register' }
 	},
 	{
 		path: '/login',
-		component: () => import('./components/Form.vue'),
+		component: () => import('./pages/LogIn.vue'),
 		name: 'login',
 		props: { page: 'Log In' }
 	},
