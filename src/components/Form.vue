@@ -8,31 +8,31 @@
         <v-text-field
           clearable
           label="Name"
-          v-model="name"
+          v-model="user.name"
           required
           :error-messages="nameErrors"
-          @input="$v.name.$touch()"
-          @blur="$v.name.$touch()"
+          @input="$v.user.name.$touch()"
+          @blur="$v.user.name.$touch()"
           v-show="page=='Register'"
         />
         <v-text-field
           clearable
           label="Email"
-          v-model="email"
+          v-model="user.email"
           required
           :error-messages="emailErrors"
-          @input="$v.email.$touch()"
-          @blur="$v.email.$touch()"
+          @input="$v.user.email.$touch()"
+          @blur="$v.user.email.$touch()"
         />
         <v-text-field
           label="Password"
           :type="show ? 'text' : 'password'"
           clearable
-          v-model="password"
+          v-model="user.password"
           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="show=!show"
-          @input="$v.password.$touch()"
-          @blur="$v.password.$touch()"
+          @input="$v.user.password.$touch()"
+          @blur="$v.user.password.$touch()"
           :error-messages="passwordErrors"
         />
       </v-card-text>
@@ -48,7 +48,7 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { mapActions, mapMutations } from "vuex";
-import router from "../router";
+import User from "../models/user";
 
 export default {
   props: {
@@ -57,35 +57,35 @@ export default {
     }
   },
   validations: {
-    name: { required },
-    email: { required, email },
-    password: { required, minLength: minLength(3) }
+    user: {
+      name: { required },
+      email: { required, email },
+      password: { required, minLength: minLength(3) }
+    }
   },
   data: () => ({
     show: false,
-    name: "",
-    email: "",
-    password: ""
+    user: new User()
   }),
   computed: {
     nameErrors() {
       const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.required && errors.push("Name is required.");
+      if (!this.$v.user.name.$dirty) return errors;
+      !this.$v.user.name.required && errors.push("Name is required.");
       return errors;
     },
     emailErrors() {
       const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Must be valid e-mail");
-      !this.$v.email.required && errors.push("E-mail is required");
+      if (!this.$v.user.email.$dirty) return errors;
+      !this.$v.user.email.email && errors.push("Must be valid e-mail");
+      !this.$v.user.email.required && errors.push("E-mail is required");
       return errors;
     },
     passwordErrors() {
       const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Password is required");
-      !this.$v.password.minLength &&
+      if (!this.$v.user.password.$dirty) return errors;
+      !this.$v.user.password.required && errors.push("Password is required");
+      !this.$v.user.password.minLength &&
         errors.push("Password must be at least 3 characters long");
       return errors;
     }
@@ -96,13 +96,8 @@ export default {
     async submitHandler() {
       if (!this.$v.$invalid) {
         try {
-          const data = {
-            name: this.name,
-            email: this.email,
-            password: this.password
-          };
-          await this.register(data);
-          router.push({ name: "subscription" });
+          await this.register(this.user);
+          this.$router.push({ name: "subscription" });
         } catch (e) {
           this.setError(e);
         }
@@ -110,9 +105,7 @@ export default {
     },
     clear() {
       this.$v.$reset();
-      this.name = "";
-      this.email = "";
-      this.password = "";
+      this.user = new User();
     }
   }
 };

@@ -36,7 +36,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import router from "../../router";
 import showButtonMixin from "../../mixins/showButtonMixin";
 import onClickMixin from "../../mixins/onClickMixin";
 
@@ -71,14 +70,14 @@ export default {
     ...mapActions(["search", "auth/logout"]),
     async logoutHandler() {
       await this["auth/logout"]();
-      router.push({ name: "login" });
+      this.$router.push({ name: "login" });
     },
     onKeyDown() {
       this.onClickAppend();
     },
     onClickAppend() {
       if (this.show) {
-        router.push({ name: "search" });
+        this.$router.push({ name: "search" });
         this.setSeries({});
         this.setError(null);
         this.setLoading(true);
