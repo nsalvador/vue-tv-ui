@@ -14,15 +14,23 @@ const state = {
 	drawer: false,
 	dialog: false,
 	dialogTitle: '',
-	// links: [
-	// 	{
-	// 		text: 'Home',
-	// 		to: '/'
-	// 	},
-	// 	{
-	// 		text: 'Log Out'
-	// 	}
-	// ],
+	links: [
+		{
+			text: 'Home',
+			to: '/'
+		},
+		{
+			text: 'Register',
+			to: '/register'
+		},
+		{
+			text: 'Log In',
+			to: '/login'
+		},
+		{
+			text: 'Log Out'
+		}
+	],
 	page: 1,
 	error: null,
 	loading: false

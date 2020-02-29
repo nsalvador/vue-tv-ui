@@ -2,21 +2,17 @@
   <v-app-bar app flat>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-container class="d-flex align-center">
-      <v-btn class="ma-1 hidden-sm-and-down" text to="/">Home</v-btn>
-      <div v-if="!isLoggedIn" class="hidden-sm-and-down">
-        <v-btn text to="/register" class="ma-1">Register</v-btn>
-        <v-btn text to="/login" class="ma-1">Log In</v-btn>
+      <v-btn text v-text="links[0].text" class="ma-1 hidden-sm-and-down" :to="links[0].to" />
+      <div class="hidden-sm-and-down" v-show="!isLoggedIn">
+        <v-btn
+          text
+          v-for="(link, i) in links.slice(1, 3)"
+          :key="i"
+          v-text="link.text"
+          :to="link.to"
+          class="ma-1"
+        />
       </div>
-      <!-- <v-btn
-        :to="link.to"
-        v-for="(link, i) in links"
-        :key="i"
-        class="ma-1 hidden-sm-and-down"
-        text
-        v-text="link.text"
-        v-show="showButton(link)"
-        @click.stop="onClick(link)"
-      />-->
       <v-spacer />
       <v-text-field
         style="max-width: 300px;"
@@ -29,24 +25,27 @@
         @click:append="onClickAppend"
         @keydown.enter="onKeyDown"
       />
-      <v-btn v-if="isLoggedIn" text class="ma-1" @click="logoutHandler">Log Out</v-btn>
+      <v-btn
+        text
+        v-text="links[links.length-1].text"
+        class="ma-1 hidden-sm-and-down"
+        v-show="isLoggedIn"
+        @click="logout"
+      />
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import showButtonMixin from "../../mixins/showButtonMixin";
-import onClickMixin from "../../mixins/onClickMixin";
 
 export default {
   name: "Header",
-  mixins: [showButtonMixin, onClickMixin],
   data: () => ({
     show: ""
   }),
   computed: {
-    ...mapState(["drawer"]),
+    ...mapState(["drawer", "links"]),
     ...mapGetters("auth", ["isLoggedIn"]),
     dialog: {
       get() {
@@ -67,11 +66,10 @@ export default {
       "setDialog",
       "setDialogTitle"
     ]),
-    ...mapActions(["search", "auth/logout"]),
-    async logoutHandler() {
-      await this["auth/logout"]();
-      this.$router.push({ name: "login" });
-    },
+    ...mapActions({
+      search: "search",
+      logout: "auth/logout"
+    }),
     onKeyDown() {
       this.onClickAppend();
     },

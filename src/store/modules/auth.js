@@ -1,4 +1,5 @@
 import AuthService from '../../services/auth';
+import router from '../../router';
 
 const state = {
 	status: '',
@@ -45,6 +46,7 @@ const actions = {
 	logout({ commit }) {
 		AuthService.logout();
 		commit('logout');
+		router.push({ name: 'login' });
 	}
 };
 

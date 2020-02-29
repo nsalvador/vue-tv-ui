@@ -18,14 +18,12 @@ const routes = [
 	{
 		path: '/register',
 		component: () => import('./pages/Register.vue'),
-		name: 'register',
-		props: { page: 'Register' }
+		name: 'register'
 	},
 	{
 		path: '/login',
 		component: () => import('./pages/LogIn.vue'),
-		name: 'login',
-		props: { page: 'Log In' }
+		name: 'login'
 	},
 	{
 		path: '/subscription',

@@ -4,11 +4,9 @@
 
 <script>
 export default {
-  props: {
-    page: {
-      type: String
-    }
-  },
+  data: () => ({
+    page: "Log In"
+  }),
   components: {
     Form: () => import("../components/Form.vue")
   }
