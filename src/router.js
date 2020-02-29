@@ -45,19 +45,13 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
-		if (store.getters.isLoggedIn) {
+		if (store.getters['auth/isLoggedIn']) {
 			return next();
 		}
-		next({ name: '/login' });
+		next({ name: 'login' });
 	} else {
 		next();
 	}
 });
 
 export default router;
-
-// export default new VueRouter({
-// 	mode: 'history',
-// 	routes,
-// 	base: process.env.NODE_ENV === 'production' ? '/vue-tv-ui/' : '/'
-// });

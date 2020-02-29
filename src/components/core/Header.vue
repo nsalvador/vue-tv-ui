@@ -48,7 +48,7 @@ export default {
   }),
   computed: {
     ...mapState(["drawer"]),
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters("auth", ["isLoggedIn"]),
     dialog: {
       get() {
         return this.$store.state.dialog;
@@ -68,9 +68,9 @@ export default {
       "setDialog",
       "setDialogTitle"
     ]),
-    ...mapActions(["search", "logout"]),
+    ...mapActions(["search", "auth/logout"]),
     async logoutHandler() {
-      await this.logout();
+      await this["auth/logout"]();
       router.push({ name: "login" });
     },
     onKeyDown() {

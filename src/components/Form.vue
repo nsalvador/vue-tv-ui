@@ -41,15 +41,6 @@
         <v-spacer />
         <v-btn @click="clear">clear</v-btn>
       </v-card-actions>
-      <!-- <v-divider />
-      <v-card-text class="text-center" v-if="page=='Sign Up'">
-        Already have an account?
-        <a @click="onClickHandler">Log In</a>
-      </v-card-text>
-      <v-card-text class="text-center" v-else-if="page=='Log In'">
-        Don't have an account?
-        <a @click="onClickHandler">Sign Up</a>
-      </v-card-text>-->
     </v-card>
   </div>
 </template>
@@ -100,7 +91,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["register"]),
+    ...mapActions("auth", ["register"]),
     ...mapMutations(["setError"]),
     async submitHandler() {
       if (!this.$v.$invalid) {
@@ -117,21 +108,6 @@ export default {
         }
       }
     },
-    // submitHandler() {
-    //   if (!this.$v.$invalid) {
-    //     const config = {
-    //       url: "http://localhost:3000/users/register",
-    //       method: "post",
-    //       data: {
-    //         name: this.name,
-    //         email: this.email,
-    //         password: this.password
-    //       }
-    //     };
-    //     this.register(config);
-    //     this.clear();
-    //   }
-    // },
     clear() {
       this.$v.$reset();
       this.name = "";

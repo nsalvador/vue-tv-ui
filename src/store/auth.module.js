@@ -1,10 +1,15 @@
-import axios from 'axios';
+import AuthService from '../services/auth.service';
 
 export const auth = {
+	namespaced: true,
 	state: {
 		status: '',
 		token: localStorage.getItem('token') || '',
 		user: {}
+	},
+	getters: {
+		isLoggedIn: state => !!state.token,
+		authStatus: state => state.status
 	},
 	mutations: {
 		auth_request(state) {
@@ -24,41 +29,21 @@ export const auth = {
 		}
 	},
 	actions: {
-		async register({ commit }, data) {
+		async register({ commit, dispatch }, data) {
 			try {
 				commit('auth_request');
-				const config = {
-					url: 'http://localhost:3000/users/register',
-					method: 'post',
-					data
-				};
-				const response = await axios(config);
-				const token = response.data.token;
-				const user = response.data.user;
-				localStorage.setItem('token', token);
-				axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+				const { token, user } = await AuthService.register(data);
 				commit('auth_success', token, user);
+				return Promise.resolve();
 			} catch (e) {
 				commit('auth_error', e);
-				localStorage.removeItem('token');
+				dispatch('logout');
 				return Promise.reject(e);
 			}
 		},
 		logout({ commit }) {
+			AuthService.logout();
 			commit('logout');
-			localStorage.removeItem('token');
-			delete axios.defaults.headers.common['Authorization'];
-			return Promise.resolve();
-		},
-		async search({ commit }, config) {
-			try {
-				const response = await axios(config);
-				commit('setSeries', response.data);
-				commit('setPage', response.data.page);
-			} catch (error) {
-				commit('setError', error);
-			}
-			commit('setLoading', false);
 		}
 	}
 };
