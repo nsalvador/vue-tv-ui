@@ -1,52 +1,30 @@
 import AuthService from '../../services/auth';
-import router from '../../router';
 
 const state = {
-	status: '',
-	token: localStorage.getItem('token') || '',
-	user: {}
+	token: localStorage.getItem('token') || ''
 };
 
 const getters = {
-	isLoggedIn: state => !!state.token,
-	authStatus: state => state.status
+	isLoggedIn: state => !!state.token
 };
 
 const mutations = {
-	auth_request(state) {
-		state.status = 'loading';
-	},
-	auth_success(state, token, user) {
-		state.status = 'success';
+	auth_success(state, token) {
 		state.token = token;
-		state.user = user;
-	},
-	auth_error(state) {
-		state.status = 'error';
 	},
 	logout(state) {
-		state.status = '';
 		state.token = '';
 	}
 };
 
 const actions = {
-	async register({ commit, dispatch }, data) {
-		try {
-			commit('auth_request');
-			const { token, user } = await AuthService.register(data);
-			commit('auth_success', token, user);
-			return Promise.resolve();
-		} catch (e) {
-			commit('auth_error', e);
-			dispatch('logout');
-			return Promise.reject(e);
-		}
+	async register({ commit }, data) {
+		const { token } = await AuthService.register(data);
+		commit('auth_success', token);
 	},
 	logout({ commit }) {
 		AuthService.logout();
 		commit('logout');
-		router.push({ name: 'login' });
 	}
 };
 

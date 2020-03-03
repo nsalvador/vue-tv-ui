@@ -26,7 +26,6 @@
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "Drawer",
   computed: {
     ...mapState(["links"]),
     ...mapGetters("auth", ["isLoggedIn"]),

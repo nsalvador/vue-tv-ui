@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["register"]),
+    ...mapActions("auth", ["register", "logout"]),
     ...mapMutations(["setError"]),
     async submitHandler() {
       if (!this.$v.$invalid) {
@@ -99,7 +99,8 @@ export default {
           await this.register(this.user);
           this.$router.push({ name: "subscription" });
         } catch (e) {
-          this.setError(e);
+          alert("An error occurred");
+          this.clearHandler();
         }
       }
     },

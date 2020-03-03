@@ -43,7 +43,8 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
-		if (store.getters['auth/isLoggedIn']) {
+		const isLoggedIn = store.getters['auth/isLoggedIn'];
+		if (isLoggedIn) {
 			return next();
 		}
 		next({ name: 'login' });

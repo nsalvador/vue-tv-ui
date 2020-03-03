@@ -12,6 +12,11 @@ export default {
   name: "App",
   created() {
     this.$vuetify.theme.dark = true;
+    this.$http.interceptors.response.use(undefined, function(err) {
+      if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+        this.$store.dispatch("auth/logout");
+      }
+    });
   },
   mounted() {
     document.documentElement.style.overflow = "auto";

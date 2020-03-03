@@ -30,7 +30,7 @@
         v-text="links[links.length-1].text"
         class="ma-1 hidden-sm-and-down"
         v-show="isLoggedIn"
-        @click="logout"
+        @click="logoutHandler"
       />
     </v-container>
   </v-app-bar>
@@ -40,7 +40,6 @@
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
-  name: "Header",
   data: () => ({
     show: ""
   }),
@@ -70,6 +69,10 @@ export default {
       search: "search",
       logout: "auth/logout"
     }),
+    logoutHandler() {
+      this.logout();
+      this.$router.push({ name: "login" });
+    },
     onKeyDown() {
       this.onClickAppend();
     },
