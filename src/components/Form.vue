@@ -1,5 +1,6 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
+    <v-snackbar v-model="error" top color="red" :timeout="5000">That user is already registered.</v-snackbar>
     <v-card width="300">
       <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title>{{ page }}</v-toolbar-title>
@@ -13,7 +14,7 @@
           :error-messages="nameErrors"
           @input="$v.user.name.$touch()"
           @blur="$v.user.name.$touch()"
-          v-show="page=='Register'"
+          v-show="page == 'Register'"
         />
         <v-text-field
           clearable
@@ -30,14 +31,14 @@
           clearable
           v-model="user.password"
           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show=!show"
+          @click:append="show = !show"
           @input="$v.user.password.$touch()"
           @blur="$v.user.password.$touch()"
           :error-messages="passwordErrors"
         />
       </v-card-text>
       <v-card-actions class="px-4 pb-4">
-        <v-btn @click="submitHandler">{{page}}</v-btn>
+        <v-btn @click="submitHandler">{{ page }}</v-btn>
         <v-spacer />
         <v-btn @click="clearHandler">clear</v-btn>
       </v-card-actions>
@@ -47,7 +48,7 @@
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import User from "../models/user";
 
 export default {
@@ -65,7 +66,8 @@ export default {
   },
   data: () => ({
     show: false,
-    user: new User()
+    user: new User(),
+    error: ""
   }),
   computed: {
     nameErrors() {
@@ -91,16 +93,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["register", "logout"]),
-    ...mapMutations(["setError"]),
+    ...mapActions("auth", ["register"]),
     async submitHandler() {
       if (!this.$v.$invalid) {
         try {
+          this.error = "";
           await this.register(this.user);
           this.$router.push({ name: "subscription" });
-        } catch (e) {
-          alert("An error occurred");
-          this.clearHandler();
+        } catch (error) {
+          this.error = error;
         }
       }
     },

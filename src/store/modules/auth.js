@@ -19,7 +19,7 @@ const mutations = {
 
 const actions = {
 	async register({ commit }, data) {
-		const { token } = await AuthService.register(data);
+		const token = await AuthService.register(data);
 		commit('auth_success', token);
 	},
 	logout({ commit }) {

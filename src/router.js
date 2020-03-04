@@ -27,7 +27,7 @@ const routes = [
 	},
 	{
 		path: '/subscription',
-		component: () => import('./components/Subscription.vue'),
+		component: () => import('./pages/Subscription.vue'),
 		name: 'subscription',
 		meta: {
 			requiresAuth: true
