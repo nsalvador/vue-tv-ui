@@ -1,9 +1,14 @@
 import axios from 'axios';
 
+const url =
+	process.env.NODE_ENV === 'production'
+		? 'https://vue-tv-api.herokuapp.com/'
+		: 'http://localhost:3000/';
+
 class AuthService {
 	async register(data) {
 		const config = {
-			url: 'http://localhost:3000/users/register',
+			url: `${url}/users/register`,
 			method: 'post',
 			data
 		};
