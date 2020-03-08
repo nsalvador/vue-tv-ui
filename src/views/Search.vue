@@ -5,7 +5,7 @@
       <app-pagination v-show="series.pages > 1" />
       <app-results />
     </div>
-    <app-progress v-else-if="loading" />
+    <app-progress v-else-if="isLoading" />
   </div>
 </template>
 
@@ -15,10 +15,10 @@ import { mapState, mapGetters } from "vuex";
 export default {
   name: "Search",
   computed: {
-    ...mapState(["loading"]),
+    ...mapState("search", ["isLoading"]),
     ...mapGetters({
-      series: "getSeries",
-      error: "getError"
+      series: "search/GET_SERIES",
+      error: "GET_ERROR"
     })
   },
   components: {

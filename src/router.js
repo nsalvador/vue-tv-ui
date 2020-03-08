@@ -7,27 +7,27 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: '/',
-		component: () => import('./pages/Home.vue'),
+		component: () => import('./views/Home.vue'),
 		name: 'home'
 	},
 	{
 		path: '/search',
-		component: () => import('./pages/Search.vue'),
+		component: () => import('./views/Search.vue'),
 		name: 'search'
 	},
 	{
 		path: '/register',
-		component: () => import('./pages/Register.vue'),
+		component: () => import('./views/Register.vue'),
 		name: 'register'
 	},
 	{
 		path: '/login',
-		component: () => import('./pages/LogIn.vue'),
+		component: () => import('./views/LogIn.vue'),
 		name: 'login'
 	},
 	{
 		path: '/subscription',
-		component: () => import('./pages/Subscription.vue'),
+		component: () => import('./views/Subscription.vue'),
 		name: 'subscription',
 		meta: {
 			requiresAuth: true

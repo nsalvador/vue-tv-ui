@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
-    <v-snackbar v-model="error" top color="red" :timeout="5000">That user is already registered.</v-snackbar>
+    <v-snackbar v-model="error" top color="red" :timeout="3000">That user is already registered.</v-snackbar>
     <v-card width="300">
       <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title>{{ page }}</v-toolbar-title>

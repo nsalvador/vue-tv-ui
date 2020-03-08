@@ -41,7 +41,8 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   data: () => ({
-    show: ""
+    show: "",
+    error: ""
   }),
   computed: {
     ...mapState(["drawer", "links"]),
@@ -56,17 +57,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      "toggleDrawer",
-      "setSeries",
-      "setError",
-      "setLoading",
-      "setStarted",
-      "setDialog",
-      "setDialogTitle"
-    ]),
+    ...mapMutations({
+      toggleDrawer: "toggleDrawer",
+      setDialog: "setDialog",
+      setDialogTitle: "setDialogTitle",
+      SET_LOADING: "search/SET_LOADING"
+    }),
     ...mapActions({
-      search: "search",
+      search: "search/search",
       logout: "auth/logout"
     }),
     logoutHandler() {
@@ -74,20 +72,16 @@ export default {
       this.$router.push({ name: "login" });
     },
     onKeyDown() {
-      this.onClickAppend();
+      this.searchHandler();
     },
     onClickAppend() {
+      this.searchHandler;
+    },
+    searchHandler() {
       if (this.show) {
+        this.SET_LOADING(true);
+        this.search(this.show);
         this.$router.push({ name: "search" });
-        this.setSeries({});
-        this.setError(null);
-        this.setLoading(true);
-        this.search({
-          url: "/shows/search",
-          method: "post",
-          data: { show: this.show },
-          params: { page: 1 }
-        });
         this.show = "";
       }
     }

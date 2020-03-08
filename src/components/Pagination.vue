@@ -2,37 +2,39 @@
   <v-container class="py-0">
     <v-row>
       <v-col>
-        <v-pagination v-model="page" :length="series.pages" @input="search"></v-pagination>
+        <v-pagination v-model="page" :length="series.pages" @input="searchHandler"></v-pagination>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "Pagination",
   computed: {
     page: {
       get() {
-        return this.$store.state.page;
+        return this.$store.state.search.page;
       },
       set(value) {
-        this.setPage(value);
+        this.SET_PAGE(value);
       }
     },
-    ...mapState(["series"])
+    ...mapGetters({
+      series: "search/GET_SERIES"
+    })
   },
   methods: {
-    ...mapMutations(["setPage"]),
-    search() {
-      this.$store.dispatch("search", {
-        url: "/shows/search",
-        method: "post",
-        data: { show: this.series.name },
-        params: { page: this.page }
-      });
+    ...mapMutations({
+      SET_PAGE: "search/SET_PAGE"
+    }),
+    ...mapActions({
+      search: "search/search"
+    }),
+    searchHandler() {
+      this.search(this.series.name);
     }
   }
 };

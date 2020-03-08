@@ -12,10 +12,11 @@ export default {
   name: "App",
   created() {
     this.$vuetify.theme.dark = true;
-    this.$http.interceptors.response.use(undefined, function(err) {
+    this.$http.interceptors.response.use(undefined, async err => {
       if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
         this.$store.dispatch("auth/logout");
       }
+      throw err;
     });
   },
   mounted() {

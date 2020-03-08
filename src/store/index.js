@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import { auth } from './modules/auth';
+import { search } from './modules/search';
 
 Vue.use(Vuex);
 
@@ -10,7 +11,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const state = {
-	series: {},
 	drawer: false,
 	dialog: false,
 	dialogTitle: '',
@@ -31,45 +31,24 @@ const state = {
 			text: 'Log Out'
 		}
 	],
-	page: 1,
-	error: null,
-	loading: false
+	error: ''
 };
 
 const getters = {
-	getSeries: state => state.series,
-	getError: state => state.error
+	GET_ERROR: state => state.error
 };
 
 const mutations = {
-	setSeries: (state, series) => (state.series = series),
+	SET_ERROR: (state, payload) => (state.error = payload),
 	setDrawer: (state, payload) => (state.drawer = payload),
-	setPage: (state, payload) => (state.page = payload),
-	setError: (state, payload) => (state.error = payload),
-	setLoading: (state, payload) => (state.loading = payload),
-	setStarted: (state, payload) => (state.started = payload),
 	toggleDrawer: state => (state.drawer = !state.drawer),
 	setDialog: (state, payload) => (state.dialog = payload),
 	setDialogTitle: (state, payload) => (state.dialogTitle = payload)
 };
 
-const actions = {
-	async search({ commit }, config) {
-		try {
-			const response = await axios(config);
-			commit('setSeries', response.data);
-			commit('setPage', response.data.page);
-		} catch (error) {
-			commit('setError', error);
-		}
-		commit('setLoading', false);
-	}
-};
-
 export default new Vuex.Store({
-	modules: { auth },
+	modules: { auth, search },
 	state,
 	getters,
-	mutations,
-	actions
+	mutations
 });

@@ -10,12 +10,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Banner",
   computed: {
-    ...mapState(["error", "series"])
+    ...mapGetters({
+      series: "search/GET_SERIES",
+      error: "GET_ERROR"
+    })
   }
 };
 </script>
