@@ -21,6 +21,11 @@ export default {
   },
   mounted() {
     document.documentElement.style.overflow = "auto";
+    const path = localStorage.getItem("path");
+    if (path) {
+      localStorage.removeItem("path");
+      this.$router.push({ path });
+    }
   },
   components: {
     AppHeader: () => import("./components/core/Header.vue"),

@@ -31,7 +31,7 @@ const state = {
 			text: 'Log Out'
 		}
 	],
-	error: ''
+	error: null
 };
 
 const getters = {

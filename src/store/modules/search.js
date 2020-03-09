@@ -24,7 +24,6 @@ const mutations = {
 const actions = {
 	async search({ commit, state }, show) {
 		try {
-			commit('SET_SERIES', {});
 			const response = await axios({
 				url: `${url}/shows/search`,
 				method: 'post',

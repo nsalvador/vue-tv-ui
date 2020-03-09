@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="Object.keys(series).length !== 0 || error">
+    <div
+      v-if="Object.keys(series).length !== 0 || error"
+      style="max-width:744px;min-width:296px;margin:0 auto;"
+    >
       <app-banner />
       <app-pagination v-show="series.pages > 1" />
       <app-results />
