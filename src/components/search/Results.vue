@@ -18,8 +18,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "Results",
   components: {
-    AppImage: () => import("./Image.vue"),
-    AppInfo: () => import("./Info.vue")
+    AppImage: () => import("../Image.vue"),
+    AppInfo: () => import("../Info.vue")
   },
   computed: {
     ...mapGetters({

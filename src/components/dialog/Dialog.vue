@@ -16,8 +16,8 @@
 <script>
 export default {
   components: {
-    AppDialogFullscreen: () => import("./FullscreenDialog.vue"),
-    AppDialogMobile: () => import("./MobileDialog.vue")
+    AppDialogFullscreen: () => import("./Fullscreen.vue"),
+    AppDialogMobile: () => import("./Mobile.vue")
   }
 };
 </script>

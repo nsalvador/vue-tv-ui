@@ -1,14 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import { auth } from './modules/auth';
 import { search } from './modules/search';
 
 Vue.use(Vuex);
-
-if (process.env.NODE_ENV === 'production') {
-	axios.defaults.baseURL = 'https://vue-tv-api.herokuapp.com';
-}
 
 const state = {
 	drawer: false,

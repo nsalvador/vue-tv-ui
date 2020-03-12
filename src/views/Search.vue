@@ -24,11 +24,16 @@ export default {
       error: "GET_ERROR"
     })
   },
+  watch: {
+    series(newValue) {
+      localStorage.setItem("series", JSON.stringify(newValue));
+    }
+  },
   components: {
-    AppResults: () => import("../components/Results.vue"),
-    AppPagination: () => import("../components/Pagination.vue"),
-    AppBanner: () => import("../components/Banner.vue"),
-    AppProgress: () => import("../components/Progress.vue")
+    AppResults: () => import("../components/search/Results.vue"),
+    AppPagination: () => import("../components/search/Pagination.vue"),
+    AppBanner: () => import("../components/search/Banner.vue"),
+    AppProgress: () => import("../components/search/Progress.vue")
   }
 };
 </script>

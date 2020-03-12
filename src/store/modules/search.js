@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-const url =
-	process.env.NODE_ENV === 'production'
-		? 'https://vue-tv-api.herokuapp.com'
-		: 'http://localhost:3000';
-
 const state = {
 	series: {},
 	page: 1,
@@ -25,7 +20,7 @@ const actions = {
 	async search({ commit, state }, show) {
 		try {
 			const response = await axios({
-				url: `${url}/shows/search`,
+				url: `${process.env.VUE_APP_URL}/shows/search`,
 				method: 'post',
 				data: { show },
 				params: { page: state.page }
