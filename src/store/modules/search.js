@@ -20,7 +20,7 @@ const actions = {
 	async search({ commit, state }, show) {
 		try {
 			const response = await axios({
-				url: `${process.env.VUE_APP_URL}/shows/search`,
+				url: `${process.env.VUE_APP_API}/shows/search`,
 				method: 'post',
 				data: { show },
 				params: { page: state.page }

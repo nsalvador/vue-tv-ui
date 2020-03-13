@@ -30,7 +30,7 @@ export default {
     }
   },
   components: {
-    AppResults: () => import("../components/search/Results.vue"),
+    AppResults: () => import("../components/search/results/Results.vue"),
     AppPagination: () => import("../components/search/Pagination.vue"),
     AppBanner: () => import("../components/search/Banner.vue"),
     AppProgress: () => import("../components/search/Progress.vue")

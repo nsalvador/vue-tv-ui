@@ -3,5 +3,5 @@ module.exports = {
 	devServer: {
 		proxy: 'http://localhost:3000'
 	},
-	publicPath: process.env.NODE_ENV === 'production' ? '/vue-tv-ui/' : '/'
+	publicPath: process.env.VUE_APP_BASE_URL
 };

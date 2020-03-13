@@ -1,18 +1,12 @@
 import axios from 'axios';
 
-// const url =
-// 	process.env.NODE_ENV === 'production'
-// 		? 'https://vue-tv-api.herokuapp.com'
-// 		: 'http://localhost:3000';
-
 class AuthService {
 	async register(data) {
-		const config = {
-			url: `${process.env.VUE_APP_URL}/users/register`,
+		const response = await axios({
+			url: `${process.env.VUE_APP_API}/users/register`,
 			method: 'post',
 			data
-		};
-		const response = await axios(config);
+		});
 		const token = response.data.token;
 		localStorage.setItem('token', token);
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
