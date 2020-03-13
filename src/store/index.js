@@ -29,14 +29,10 @@ const state = {
 	error: null
 };
 
-const getters = {
-	GET_ERROR: state => state.error
-};
-
 const mutations = {
 	SET_ERROR: (state, payload) => (state.error = payload),
-	setDrawer: (state, payload) => (state.drawer = payload),
-	toggleDrawer: state => (state.drawer = !state.drawer),
+	SET_DRAWER: (state, payload) => (state.drawer = payload),
+	TOGGLE_DRAWER: state => (state.drawer = !state.drawer),
 	setDialog: (state, payload) => (state.dialog = payload),
 	setDialogTitle: (state, payload) => (state.dialogTitle = payload)
 };
@@ -44,6 +40,5 @@ const mutations = {
 export default new Vuex.Store({
 	modules: { auth, search },
 	state,
-	getters,
 	mutations
 });

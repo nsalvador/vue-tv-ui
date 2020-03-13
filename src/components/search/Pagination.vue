@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "Pagination",
@@ -22,9 +22,7 @@ export default {
         this.SET_PAGE(value);
       }
     },
-    ...mapGetters({
-      series: "search/GET_SERIES"
-    })
+    ...mapState("search", { series: state => state.series })
   },
   methods: {
     ...mapMutations({

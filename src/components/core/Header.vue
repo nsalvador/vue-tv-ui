@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app flat>
-    <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
+    <v-app-bar-nav-icon class="hidden-md-and-up" @click="TOGGLE_DRAWER" />
     <v-container>
       <div style="max-width:744px;min-width:296px;margin:0 auto;" class="d-flex align-center">
         <v-btn text v-text="links[0].text" class="ma-1 hidden-sm-and-down" :to="links[0].to" />
@@ -48,21 +48,11 @@ export default {
   }),
   computed: {
     ...mapState(["drawer", "links"]),
-    ...mapGetters("auth", ["isLoggedIn"]),
-    dialog: {
-      get() {
-        return this.$store.state.dialog;
-      },
-      set(value) {
-        this.setDialog(value);
-      }
-    }
+    ...mapGetters("auth", ["isLoggedIn"])
   },
   methods: {
     ...mapMutations({
-      toggleDrawer: "toggleDrawer",
-      setDialog: "setDialog",
-      setDialogTitle: "setDialogTitle",
+      TOGGLE_DRAWER: "TOGGLE_DRAWER",
       SET_LOADING: "search/SET_LOADING",
       SET_SERIES: "search/SET_SERIES",
       SET_PAGE: "search/SET_PAGE",

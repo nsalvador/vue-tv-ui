@@ -10,15 +10,19 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Banner",
   computed: {
-    ...mapGetters({
-      series: "search/GET_SERIES",
-      error: "GET_ERROR"
+    ...mapState({
+      series: state => state.search.series,
+      error: state => state.error
     })
+    // ...mapGetters({
+    //   series: "search/GET_SERIES",
+    //   error: "GET_ERROR"
+    // })
   }
 };
 </script>

@@ -34,25 +34,12 @@ export default {
         return this.$store.state.drawer;
       },
       set(value) {
-        this.setDrawer(value);
-      }
-    },
-    dialog: {
-      get() {
-        return this.$store.state.dialog;
-      },
-      set(value) {
-        this.setDialog(value);
+        this.SET_DRAWER(value);
       }
     }
   },
   methods: {
-    ...mapMutations([
-      "setDrawer",
-      "setDialog",
-      "setDialogTitle",
-      "toggleDrawer"
-    ]),
+    ...mapMutations(["SET_DRAWER"]),
     ...mapActions({ logout: "auth/logout" })
   }
 };

@@ -13,21 +13,16 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Search",
   computed: {
-    ...mapState("search", ["isLoading"]),
-    ...mapGetters({
-      series: "search/GET_SERIES",
-      error: "GET_ERROR"
+    ...mapState({
+      isLoading: state => state.search.isLoading,
+      series: state => state.search.series,
+      error: state => state.error
     })
-  },
-  watch: {
-    series(newValue) {
-      localStorage.setItem("series", JSON.stringify(newValue));
-    }
   },
   components: {
     AppResults: () => import("../components/search/results/Results.vue"),

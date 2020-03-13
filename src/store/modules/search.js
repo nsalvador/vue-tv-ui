@@ -6,10 +6,6 @@ const state = {
 	isLoading: false
 };
 
-const getters = {
-	GET_SERIES: state => state.series
-};
-
 const mutations = {
 	SET_SERIES: (state, series) => (state.series = series),
 	SET_PAGE: (state, page) => (state.page = page),
@@ -37,7 +33,6 @@ const actions = {
 export const search = {
 	namespaced: true,
 	state,
-	getters,
 	mutations,
 	actions
 };
