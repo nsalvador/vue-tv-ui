@@ -25,12 +25,8 @@ export default {
     ...mapState("search", { series: state => state.series })
   },
   methods: {
-    ...mapMutations({
-      SET_PAGE: "search/SET_PAGE"
-    }),
-    ...mapActions({
-      search: "search/search"
-    }),
+    ...mapMutations("search", ["SET_PAGE"]),
+    ...mapActions("search", ["search"]),
     searchHandler() {
       this.search(this.series.name);
     }

@@ -3,11 +3,16 @@
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="TOGGLE_DRAWER" />
     <v-container>
       <div style="max-width:744px;min-width:296px;margin:0 auto;" class="d-flex align-center">
-        <v-btn text v-text="links[0].text" class="ma-1 hidden-sm-and-down" :to="links[0].to" />
+        <v-btn
+          text
+          v-text="GET_LINKS('first').text"
+          class="ma-1 hidden-sm-and-down"
+          :to="GET_LINKS('first').to"
+        />
         <div class="hidden-sm-and-down" v-show="!isLoggedIn">
           <v-btn
             text
-            v-for="(link, i) in links.slice(1, 3)"
+            v-for="(link, i) in GET_LINKS('mid')"
             :key="i"
             v-text="link.text"
             :to="link.to"
@@ -23,12 +28,12 @@
           hide-details
           solo-inverted
           v-model="show"
-          @click:append="onClickAppend"
-          @keydown.enter="onKeyDown"
+          @click:append="searchHandler"
+          @keydown.enter="searchHandler"
         />
         <v-btn
           text
-          v-text="links[links.length-1].text"
+          v-text="GET_LINKS('last').text"
           class="ma-1 hidden-sm-and-down"
           v-show="isLoggedIn"
           @click="logoutHandler"
@@ -46,13 +51,23 @@ export default {
     show: "",
     error: ""
   }),
+  watch: {
+    series(newValue) {
+      localStorage.setItem("series", JSON.stringify(newValue));
+    }
+  },
   computed: {
-    ...mapState(["drawer", "links"]),
-    ...mapGetters("auth", ["isLoggedIn"])
+    ...mapState("search", {
+      series: state => state.series
+    }),
+    ...mapGetters({
+      isLoggedIn: "auth/isLoggedIn",
+      GET_LINKS: "GET_LINKS"
+    })
   },
   methods: {
     ...mapMutations({
-      TOGGLE_DRAWER: "TOGGLE_DRAWER",
+      TOGGLE_DRAWER: "drawer/TOGGLE_DRAWER",
       SET_LOADING: "search/SET_LOADING",
       SET_SERIES: "search/SET_SERIES",
       SET_PAGE: "search/SET_PAGE",
@@ -65,12 +80,6 @@ export default {
     logoutHandler() {
       this.logout();
       this.$router.push({ name: "login" });
-    },
-    onKeyDown() {
-      this.searchHandler();
-    },
-    onClickAppend() {
-      this.searchHandler;
     },
     searchHandler() {
       if (this.show) {

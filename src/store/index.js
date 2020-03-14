@@ -2,43 +2,44 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { auth } from './modules/auth';
 import { search } from './modules/search';
+import { drawer } from './modules/drawer';
 
 Vue.use(Vuex);
 
 const state = {
-	drawer: false,
-	dialog: false,
-	dialogTitle: '',
 	links: [
-		{
-			text: 'Home',
-			to: '/'
-		},
-		{
-			text: 'Register',
-			to: '/register'
-		},
-		{
-			text: 'Log In',
-			to: '/login'
-		},
-		{
-			text: 'Log Out'
-		}
+		{ text: 'Home', to: '/' },
+		{ text: 'Register', to: '/register' },
+		{ text: 'Log In', to: '/login' },
+		{ text: 'Log Out' }
 	],
 	error: null
 };
 
+const getters = {
+	GET_LINKS: state => value => {
+		switch (value) {
+			case 'first':
+				return state.links.filter((link, index) => index === 0)[0];
+			case 'mid':
+				return state.links.filter(
+					(link, index) => index !== 0 && index !== state.links.length - 1
+				);
+			case 'last':
+				return state.links.filter(
+					(link, index) => index === state.links.length - 1
+				)[0];
+		}
+	}
+};
+
 const mutations = {
-	SET_ERROR: (state, payload) => (state.error = payload),
-	SET_DRAWER: (state, payload) => (state.drawer = payload),
-	TOGGLE_DRAWER: state => (state.drawer = !state.drawer),
-	setDialog: (state, payload) => (state.dialog = payload),
-	setDialogTitle: (state, payload) => (state.dialogTitle = payload)
+	SET_ERROR: (state, payload) => (state.error = payload)
 };
 
 export default new Vuex.Store({
-	modules: { auth, search },
+	modules: { auth, search, drawer },
 	state,
+	getters,
 	mutations
 });

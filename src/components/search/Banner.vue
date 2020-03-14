@@ -19,10 +19,6 @@ export default {
       series: state => state.search.series,
       error: state => state.error
     })
-    // ...mapGetters({
-    //   series: "search/GET_SERIES",
-    //   error: "GET_ERROR"
-    // })
   }
 };
 </script>

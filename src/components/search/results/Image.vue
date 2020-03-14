@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-responsive>
-      <v-img :src="getImage(show)" aspect-ratio="0.68" contain class="img" />
+      <v-img :src="GET_IMAGE(show)" aspect-ratio="0.68" contain class="img" />
     </v-responsive>
     <v-card-actions>
       <span class="text-truncate" :title="show.seriesName">{{ show.seriesName }}</span>
@@ -24,7 +24,7 @@ export default {
     AppDialog: () => import("../../dialog/Dialog.vue")
   },
   methods: {
-    getImage(show) {
+    GET_IMAGE(show) {
       return show.posterUrl ? show.posterUrl : noImageURL;
     }
   }

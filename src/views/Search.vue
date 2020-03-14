@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="Object.keys(series).length !== 0 || error"
-      style="max-width:744px;min-width:296px;margin:0 auto;"
-    >
+    <div v-if="condition" style="max-width:744px;min-width:296px;margin:0 auto;">
       <app-banner />
       <app-pagination v-show="series.pages > 1" />
       <app-results />
@@ -13,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Search",
@@ -22,7 +19,19 @@ export default {
       isLoading: state => state.search.isLoading,
       series: state => state.search.series,
       error: state => state.error
-    })
+    }),
+    condition() {
+      return Object.keys(this.series).length !== 0 || this.error;
+    }
+  },
+  methods: {
+    ...mapMutations("search", ["SET_SERIES"])
+  },
+  mounted() {
+    const series = localStorage.getItem("series");
+    if (series) {
+      this.SET_SERIES(JSON.parse(series));
+    }
   },
   components: {
     AppResults: () => import("../components/search/results/Results.vue"),

@@ -1,13 +1,13 @@
 <template>
   <v-navigation-drawer v-model="drawer" app>
     <v-list>
-      <v-list-item :to="links[0].to">
+      <v-list-item :to="GET_LINKS('first').to">
         <v-list-item-content>
-          <v-list-item-title v-text="links[0].text" />
+          <v-list-item-title v-text="GET_LINKS('first').text" />
         </v-list-item-content>
       </v-list-item>
       <div v-show="!isLoggedIn">
-        <v-list-item v-for="(link, i) in links.slice(1, 3)" :key="i" :to="link.to">
+        <v-list-item v-for="(link, i) in GET_LINKS('mid')" :key="i" :to="link.to">
           <v-list-item-content>
             <v-list-item-title v-text="link.text" />
           </v-list-item-content>
@@ -15,7 +15,7 @@
       </div>
       <v-list-item v-show="isLoggedIn" @click="logout">
         <v-list-item-content>
-          <v-list-item-title v-text="links[links.length-1].text" />
+          <v-list-item-title v-text="GET_LINKS('last').text" />
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -23,15 +23,17 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["links"]),
-    ...mapGetters("auth", ["isLoggedIn"]),
+    ...mapGetters({
+      isLoggedIn: "auth/isLoggedIn",
+      GET_LINKS: "GET_LINKS"
+    }),
     drawer: {
       get() {
-        return this.$store.state.drawer;
+        return this.$store.state.drawer.drawer;
       },
       set(value) {
         this.SET_DRAWER(value);
@@ -39,8 +41,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["SET_DRAWER"]),
-    ...mapActions({ logout: "auth/logout" })
+    ...mapMutations("drawer", ["SET_DRAWER"]),
+    ...mapActions("auth", ["logout"])
   }
 };
 </script>
