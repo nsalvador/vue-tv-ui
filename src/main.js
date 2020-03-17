@@ -4,9 +4,9 @@ import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import store from './store';
 import router from './router';
-import Axios from 'axios';
+import axios from 'axios';
 
-Vue.prototype.$http = Axios;
+Vue.prototype.$http = axios;
 Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 

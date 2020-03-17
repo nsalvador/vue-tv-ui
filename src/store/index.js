@@ -18,17 +18,16 @@ const state = {
 
 const getters = {
 	GET_LINKS: state => value => {
+		const length = state.links.length - 1;
 		switch (value) {
 			case 'first':
 				return state.links.filter((link, index) => index === 0)[0];
 			case 'mid':
 				return state.links.filter(
-					(link, index) => index !== 0 && index !== state.links.length - 1
+					(link, index) => index !== 0 && index !== length
 				);
 			case 'last':
-				return state.links.filter(
-					(link, index) => index === state.links.length - 1
-				)[0];
+				return state.links.filter((link, index) => index === length)[0];
 		}
 	}
 };
