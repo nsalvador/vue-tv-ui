@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-	series: {},
+	series: null,
 	page: 1,
 	isLoading: false
 };

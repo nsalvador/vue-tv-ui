@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="condition" style="max-width:744px;min-width:296px;margin:0 auto;">
-      <app-banner />
+      <app-banner :message="message" />
       <app-pagination v-show="series.pages > 1" />
       <app-results />
     </div>
@@ -22,6 +22,11 @@ export default {
     }),
     condition() {
       return Object.keys(this.series).length !== 0 || this.error;
+    },
+    message() {
+      return this.error
+        ? `${this.error.name}: ${this.error.message}`
+        : `${this.series.results} results(s) for ${this.series.name}`;
     }
   },
   methods: {
@@ -39,7 +44,7 @@ export default {
   components: {
     AppResults: () => import("../components/search/results/Results.vue"),
     AppPagination: () => import("../components/search/Pagination.vue"),
-    AppBanner: () => import("../components/search/Banner.vue"),
+    AppBanner: () => import("../components/Banner.vue"),
     AppProgress: () => import("../components/search/Progress.vue")
   }
 };

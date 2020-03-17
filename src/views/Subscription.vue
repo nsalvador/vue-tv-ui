@@ -1,12 +1,6 @@
 <template>
-  <div style="max-width:744px;min-width:296px;margin:0 auto;">
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-banner v-show="condition">No subscriptions. Start a search.</v-banner>
-        </v-col>
-      </v-row>
-    </v-container>
+  <div style="max-width:744px;min-width:296px;margin:0 auto;" v-if="condition">
+    <app-banner message="No subscriptions. Start a search." />
   </div>
 </template>
 
@@ -14,6 +8,7 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
+  name: "Subscription",
   mounted() {
     this.GET_SUBSCRIPTIONS();
   },
@@ -25,6 +20,9 @@ export default {
   },
   methods: {
     ...mapActions("search", ["GET_SUBSCRIPTIONS"])
+  },
+  components: {
+    AppBanner: () => import("../components/Banner.vue")
   }
 };
 </script>
