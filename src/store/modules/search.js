@@ -27,6 +27,14 @@ const actions = {
 			commit('SET_ERROR', error, { root: true });
 		}
 		commit('SET_LOADING', false);
+	},
+
+	async GET_SUBSCRIPTIONS({ commit }) {
+		const response = await axios({
+			url: `${process.env.VUE_APP_API}/shows`,
+			methods: 'get'
+		});
+		commit('SET_SERIES', response.data);
 	}
 };
 

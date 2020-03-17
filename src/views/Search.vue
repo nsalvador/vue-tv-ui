@@ -25,12 +25,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("search", ["SET_SERIES"])
+    ...mapMutations("search", ["SET_SERIES", "SET_PAGE"])
   },
   mounted() {
-    const series = localStorage.getItem("series");
+    const seriesJSON = localStorage.getItem("series");
+    const series = JSON.parse(seriesJSON);
+
     if (series) {
-      this.SET_SERIES(JSON.parse(series));
+      this.SET_SERIES(series);
+      this.SET_PAGE(series.page);
     }
   },
   components: {
