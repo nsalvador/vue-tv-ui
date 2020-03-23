@@ -5,14 +5,14 @@
       <div style="max-width:744px;min-width:296px;margin:0 auto;" class="d-flex align-center">
         <v-btn
           text
-          v-text="GET_LINKS('first').text"
+          v-text="links('first').text"
           class="ma-1 hidden-sm-and-down"
-          :to="GET_LINKS('first').to"
+          :to="links('first').to"
         />
         <div class="hidden-sm-and-down" v-show="!isLoggedIn">
           <v-btn
             text
-            v-for="(link, i) in GET_LINKS('mid')"
+            v-for="(link, i) in links('mid')"
             :key="i"
             v-text="link.text"
             :to="link.to"
@@ -33,7 +33,7 @@
         />
         <v-btn
           text
-          v-text="GET_LINKS('last').text"
+          v-text="links('last').text"
           class="ma-1 hidden-sm-and-down"
           v-show="isLoggedIn"
           @click="logoutHandler"
@@ -44,25 +44,17 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   data: () => ({
     show: "",
     error: ""
   }),
-  watch: {
-    series(newValue) {
-      localStorage.setItem("series", JSON.stringify(newValue));
-    }
-  },
   computed: {
-    ...mapState("search", {
-      series: state => state.series
-    }),
     ...mapGetters({
       isLoggedIn: "auth/isLoggedIn",
-      GET_LINKS: "GET_LINKS"
+      links: "GET_LINKS"
     })
   },
   methods: {
@@ -83,9 +75,9 @@ export default {
     },
     searchHandler() {
       if (this.show) {
-        this.SET_PAGE(1);
-        this.SET_ERROR(null);
-        this.SET_SERIES({});
+        this.SET_PAGE();
+        this.SET_ERROR();
+        this.SET_SERIES();
         this.SET_LOADING(true);
         this.search(this.show);
         if (this.$route.name !== "search") {

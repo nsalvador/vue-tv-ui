@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-dialog-fullscreen>
+    <app-dialog-fullscreen :show="show">
       <template slot="info">
         <slot name="info" />
       </template>
@@ -15,6 +15,11 @@
 
 <script>
 export default {
+  props: {
+    show: {
+      type: Object
+    }
+  },
   components: {
     AppDialogFullscreen: () => import("./Fullscreen.vue"),
     AppDialogMobile: () => import("./Mobile.vue")

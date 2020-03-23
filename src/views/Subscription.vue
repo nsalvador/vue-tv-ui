@@ -5,21 +5,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Subscription",
-  mounted() {
-    this.GET_SUBSCRIPTIONS();
-  },
   computed: {
     ...mapState("search", ["series"]),
     condition() {
-      return this.series.length === 0;
+      return this.series.series.length === 0;
     }
-  },
-  methods: {
-    ...mapActions("search", ["GET_SUBSCRIPTIONS"])
   },
   components: {
     AppBanner: () => import("../components/Banner.vue")

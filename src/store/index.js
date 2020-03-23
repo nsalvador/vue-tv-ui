@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { auth } from './modules/auth';
 import { search } from './modules/search';
 import { drawer } from './modules/drawer';
+import { show } from './modules/show';
 
 Vue.use(Vuex);
 
@@ -33,11 +34,11 @@ const getters = {
 };
 
 const mutations = {
-	SET_ERROR: (state, payload) => (state.error = payload)
+	SET_ERROR: (state, payload = null) => (state.error = payload)
 };
 
 export default new Vuex.Store({
-	modules: { auth, search, drawer },
+	modules: { auth, search, drawer, show },
 	state,
 	getters,
 	mutations

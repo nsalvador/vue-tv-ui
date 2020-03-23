@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Results",
@@ -22,7 +22,9 @@ export default {
     AppInfo: () => import("./Info.vue")
   },
   computed: {
-    ...mapState("search", { series: state => state.series })
+    ...mapGetters({
+      series: "search/GET_SERIES"
+    })
   }
 };
 </script>

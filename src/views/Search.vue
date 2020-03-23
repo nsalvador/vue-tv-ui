@@ -10,15 +10,31 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Search",
+  mounted() {
+    const seriesJSON = localStorage.getItem("series");
+    if (seriesJSON) {
+      const series = JSON.parse(seriesJSON);
+      this.SET_PAGE(series.page);
+      this.SET_SERIES(series);
+    }
+  },
+  destroyed() {
+    localStorage.clear();
+  },
+  methods: {
+    ...mapMutations("search", ["SET_PAGE", "SET_SERIES"])
+  },
   computed: {
     ...mapState({
       isLoading: state => state.search.isLoading,
-      series: state => state.search.series,
       error: state => state.error
+    }),
+    ...mapGetters({
+      series: "search/GET_SERIES"
     }),
     condition() {
       return Object.keys(this.series).length !== 0 || this.error;
@@ -26,19 +42,7 @@ export default {
     message() {
       return this.error
         ? `${this.error.name}: ${this.error.message}`
-        : `${this.series.results} results(s) for ${this.series.name}`;
-    }
-  },
-  methods: {
-    ...mapMutations("search", ["SET_SERIES", "SET_PAGE"])
-  },
-  mounted() {
-    const seriesJSON = localStorage.getItem("series");
-    const series = JSON.parse(seriesJSON);
-
-    if (series) {
-      this.SET_SERIES(series);
-      this.SET_PAGE(series.page);
+        : `${this.series.results} results(s) for '${this.series.name}'`;
     }
   },
   components: {

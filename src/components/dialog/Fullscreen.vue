@@ -14,16 +14,37 @@
       <v-card-actions>
         <v-btn text @click="dialog=false">Close</v-btn>
         <v-spacer />
-        <v-btn text>Subscribe</v-btn>
+        <v-btn text @click="subscribeHandler">Subscribe</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+// import Show from "../../models/show";
+import { mapActions } from "vuex";
+
 export default {
+  props: {
+    show: {
+      type: Object
+    }
+  },
   data: () => ({
     dialog: false
-  })
+  }),
+  methods: {
+    ...mapActions("show", ["subscribe"]),
+    async subscribeHandler() {
+      this.dialog = false;
+      try {
+        // alert(JSON.stringify(this.show, null, 2));
+        // await this.subscribe(this.show);
+        alert("success");
+      } catch (e) {
+        alert(JSON.stringify(e, null, 2));
+      }
+    }
+  }
 };
 </script>
