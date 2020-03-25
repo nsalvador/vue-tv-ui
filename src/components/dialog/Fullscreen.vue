@@ -21,7 +21,7 @@
 </template>
 
 <script>
-// import Show from "../../models/show";
+import Show from "../../models/show";
 import { mapActions } from "vuex";
 
 export default {
@@ -34,15 +34,17 @@ export default {
     dialog: false
   }),
   methods: {
-    ...mapActions("show", ["subscribe"]),
+    ...mapActions({
+      subscribe: "show/subscribeToShow"
+    }),
     async subscribeHandler() {
-      this.dialog = false;
       try {
-        // alert(JSON.stringify(this.show, null, 2));
-        // await this.subscribe(this.show);
+        this.dialog = false;
+        const show = new Show(this.show);
+        await this.subscribe(show);
         alert("success");
-      } catch (e) {
-        alert(JSON.stringify(e, null, 2));
+      } catch (error) {
+        alert("error:", JSON.stringify(error, null, 2));
       }
     }
   }

@@ -1,20 +1,17 @@
-import axios from 'axios';
+// import axios from 'axios';
+import ShowService from '../../../services/show';
 
 export const actions = {
 	async search({ commit, state }, show) {
 		try {
 			let payload;
-			const seriesJSON = localStorage.getItem('series');
+			const seriesJSON = sessionStorage.getItem('series');
 			if (!seriesJSON || JSON.parse(seriesJSON).name !== show) {
-				const response = await axios({
-					url: `${process.env.VUE_APP_API}/shows/search`,
-					method: 'post',
-					data: { show }
-				});
+				const response = await ShowService.searchShow(show);
 				payload = {
 					name: show,
 					page: state.page,
-					series: response.data
+					series: response
 				};
 			} else {
 				payload = { ...JSON.parse(seriesJSON), page: state.page };
@@ -24,13 +21,5 @@ export const actions = {
 			commit('SET_ERROR', error, { root: true });
 		}
 		commit('SET_LOADING', false);
-	},
-
-	async subscriptions({ commit }) {
-		const response = await axios({
-			url: `${process.env.VUE_APP_API}/shows`,
-			methods: 'get'
-		});
-		commit('SET_SERIES', response.data);
 	}
 };

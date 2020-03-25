@@ -1,14 +1,14 @@
+import { actions } from './actions';
 import { getters } from './getters';
 import { mutations } from './mutations';
-import { actions } from './actions';
 
 const state = {
-	token: sessionStorage.getItem('token') || ''
+	shows: []
 };
 
 const namespaced = true;
 
-export const auth = {
+export const show = {
 	namespaced,
 	state,
 	getters,

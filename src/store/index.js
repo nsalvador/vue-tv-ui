@@ -12,6 +12,7 @@ const state = {
 		{ text: 'Home', to: '/' },
 		{ text: 'Register', to: '/register' },
 		{ text: 'Log In', to: '/login' },
+		{ text: 'Subscriptions', to: '/subscription' },
 		{ text: 'Log Out' }
 	],
 	error: null
@@ -19,22 +20,18 @@ const state = {
 
 const getters = {
 	GET_LINKS: state => value => {
-		const length = state.links.length - 1;
-		switch (value) {
-			case 'first':
-				return state.links.filter((link, index) => index === 0)[0];
-			case 'mid':
-				return state.links.filter(
-					(link, index) => index !== 0 && index !== length
-				);
-			case 'last':
-				return state.links.filter((link, index) => index === length)[0];
+		if (value !== 'mid') {
+			return state.links.filter(link => link.text === value)[0];
+		} else {
+			return state.links.filter(
+				link => link.text === 'Register' || link.text === 'Log In'
+			);
 		}
 	}
 };
 
 const mutations = {
-	SET_ERROR: (state, payload = null) => (state.error = payload)
+	SET_ERROR: (state, payload = null) => Vue.set(state, 'error', payload)
 };
 
 export default new Vuex.Store({

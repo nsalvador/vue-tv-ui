@@ -5,9 +5,9 @@
       <div style="max-width:744px;min-width:296px;margin:0 auto;" class="d-flex align-center">
         <v-btn
           text
-          v-text="links('first').text"
+          v-text="links('Home').text"
           class="ma-1 hidden-sm-and-down"
-          :to="links('first').to"
+          :to="links('Home').to"
         />
         <div class="hidden-sm-and-down" v-show="!isLoggedIn">
           <v-btn
@@ -19,6 +19,13 @@
             class="ma-1"
           />
         </div>
+        <v-btn
+          text
+          v-text="links('Subscriptions').text"
+          class="ma-1 hidden-sm-and-down"
+          :to="links('Subscriptions').to"
+          v-show="isLoggedIn"
+        />
         <v-spacer />
         <v-text-field
           style="max-width: 300px;"
@@ -33,7 +40,7 @@
         />
         <v-btn
           text
-          v-text="links('last').text"
+          v-text="links('Log Out').text"
           class="ma-1 hidden-sm-and-down"
           v-show="isLoggedIn"
           @click="logoutHandler"
@@ -70,6 +77,7 @@ export default {
       logout: "auth/logout"
     }),
     logoutHandler() {
+      sessionStorage.clear();
       this.logout();
       this.$router.push({ name: "login" });
     },

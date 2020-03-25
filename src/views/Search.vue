@@ -3,7 +3,7 @@
     <div v-if="condition" style="max-width:744px;min-width:296px;margin:0 auto;">
       <app-banner :message="message" />
       <app-pagination v-show="series.pages > 1" />
-      <app-results />
+      <app-results :shows="series.series" />
     </div>
     <app-progress v-else-if="isLoading" />
   </div>
@@ -15,7 +15,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   name: "Search",
   mounted() {
-    const seriesJSON = localStorage.getItem("series");
+    const seriesJSON = sessionStorage.getItem("series");
     if (seriesJSON) {
       const series = JSON.parse(seriesJSON);
       this.SET_PAGE(series.page);
@@ -23,7 +23,9 @@ export default {
     }
   },
   destroyed() {
-    localStorage.clear();
+    if (!this.isLoggedIn) {
+      sessionStorage.clear();
+    }
   },
   methods: {
     ...mapMutations("search", ["SET_PAGE", "SET_SERIES"])
@@ -34,7 +36,8 @@ export default {
       error: state => state.error
     }),
     ...mapGetters({
-      series: "search/GET_SERIES"
+      series: "search/GET_SERIES",
+      isLoggedIn: "auth/isLoggedIn"
     }),
     condition() {
       return Object.keys(this.series).length !== 0 || this.error;
@@ -42,11 +45,13 @@ export default {
     message() {
       return this.error
         ? `${this.error.name}: ${this.error.message}`
-        : `${this.series.results} results(s) for '${this.series.name}'`;
+        : `${this.series.results} ${
+            this.series.results !== 1 ? "results" : "result"
+          } for '${this.series.name}'`;
     }
   },
   components: {
-    AppResults: () => import("../components/search/results/Results.vue"),
+    AppResults: () => import("../components/Results.vue"),
     AppPagination: () => import("../components/search/Pagination.vue"),
     AppBanner: () => import("../components/Banner.vue"),
     AppProgress: () => import("../components/search/Progress.vue")

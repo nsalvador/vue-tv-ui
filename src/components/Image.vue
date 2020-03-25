@@ -21,7 +21,7 @@ const noImageURL = "https://via.placeholder.com/680x1000.png?text=No+Image";
 export default {
   props: ["show"],
   components: {
-    AppDialog: () => import("../../dialog/Dialog.vue")
+    AppDialog: () => import("./dialog/Dialog")
   },
   methods: {
     GET_IMAGE(show) {

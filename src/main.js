@@ -7,9 +7,11 @@ import router from './router';
 import axios from 'axios';
 
 Vue.prototype.$http = axios;
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 if (token) {
-	Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+	Vue.prototype.$http.defaults.headers.common[
+		'Authorization'
+	] = `Bearer ${token}`;
 }
 Vue.use(Vuelidate);
 Vue.config.productionTip = false;

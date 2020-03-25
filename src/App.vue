@@ -21,9 +21,10 @@ export default {
   },
   mounted() {
     document.documentElement.style.overflow = "auto";
-    const path = localStorage.getItem("path");
+
+    const path = sessionStorage.getItem("path");
     if (path) {
-      localStorage.removeItem("path");
+      sessionStorage.removeItem("path");
       this.$router.push({ path });
     }
   },

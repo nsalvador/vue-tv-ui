@@ -8,7 +8,7 @@ class AuthService {
 			data
 		});
 		const token = response.data.token;
-		localStorage.setItem('token', token);
+		sessionStorage.setItem('token', token);
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		return response.data.token;
 	}
@@ -20,13 +20,13 @@ class AuthService {
 			data
 		});
 		const token = response.data.token;
-		localStorage.setItem('token', token);
+		sessionStorage.setItem('token', token);
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		return response.data.token;
 	}
 
 	logout() {
-		localStorage.removeItem('token');
+		sessionStorage.removeItem('token');
 		delete axios.defaults.headers.common['Authorization'];
 	}
 }

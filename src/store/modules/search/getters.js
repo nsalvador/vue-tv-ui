@@ -4,18 +4,17 @@ export const getters = {
 			return {};
 		}
 
-		const { name, series } = state.series;
-		const size = 12;
+		const { name, series, page } = state.series;
+		const SIZE = 12;
 		const results = series.length;
-		const page = state.page - 1;
-		const pages = Math.floor(results / size) + (results % size !== 0 ? 1 : 0);
+		const pages = Math.floor(results / SIZE) + (results % SIZE !== 0 ? 1 : 0);
 
 		return {
 			name,
 			results,
-			page: page + 1,
+			page,
 			pages,
-			series: series.splice(page * size, size)
+			series: series.splice((page - 1) * SIZE, SIZE)
 		};
 	}
 };
