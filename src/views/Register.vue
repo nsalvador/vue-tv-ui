@@ -42,7 +42,7 @@
         />
       </v-card-text>
       <v-card-actions class="px-4 pb-4">
-        <v-btn @click="submitHandler">{{ page }}</v-btn>
+        <v-btn @click="registerHandler">{{ page }}</v-btn>
         <v-spacer />
         <v-btn @click="clearHandler">clear</v-btn>
       </v-card-actions>
@@ -96,13 +96,13 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["register"]),
-    async submitHandler() {
+    async registerHandler() {
       if (!this.$v.$invalid) {
         try {
           await this.register(this.user);
           this.$router.push({ name: "subscription" });
-        } catch (e) {
-          this.message = "Registration Failed.";
+        } catch (error) {
+          this.message = error.response.data.description;
           this.snackbar = true;
         }
       }

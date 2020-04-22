@@ -1,6 +1,11 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
-    <v-snackbar v-model="error" top color="red" :timeout="3000">That user is not registered.</v-snackbar>
+    <v-snackbar v-model="snackbar" top color="red" :timeout="5000">
+      {{ message }}
+      <v-btn @click="snackbar=false" icon text>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
     <v-card width="300">
       <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title v-text="page" />
@@ -47,7 +52,8 @@ export default {
     page: "Log In",
     show: false,
     user: new User(),
-    error: ""
+    message: "",
+    snackbar: false
   }),
   validations: {
     user: {
@@ -81,7 +87,8 @@ export default {
           await this.login(this.user);
           this.$router.push({ name: "subscription" });
         } catch (error) {
-          this.error = error;
+          this.message = error.response.data.description;
+          this.snackbar = true;
         }
       }
     },
