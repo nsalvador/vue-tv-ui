@@ -1,6 +1,11 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
-    <v-snackbar v-model="error" top color="red" :timeout="3000">That user is already registered.</v-snackbar>
+    <v-snackbar v-model="snackbar" top color="red" :timeout="5000">
+      {{ message }}
+      <v-btn @click="snackbar=false" icon text>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
     <v-card width="300">
       <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title v-text="page" />
@@ -56,7 +61,8 @@ export default {
     show: false,
     page: "Register",
     user: new User(),
-    error: ""
+    message: "",
+    snackbar: false
   }),
   validations: {
     user: {
@@ -92,12 +98,12 @@ export default {
     ...mapActions("auth", ["register"]),
     async submitHandler() {
       if (!this.$v.$invalid) {
-        this.error = "";
         try {
           await this.register(this.user);
           this.$router.push({ name: "subscription" });
-        } catch (error) {
-          this.error = error;
+        } catch (e) {
+          this.message = "Registration Failed.";
+          this.snackbar = true;
         }
       }
     },

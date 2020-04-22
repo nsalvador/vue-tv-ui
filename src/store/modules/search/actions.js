@@ -7,11 +7,11 @@ export const actions = {
 			let payload;
 			const seriesJSON = sessionStorage.getItem('series');
 			if (!seriesJSON || JSON.parse(seriesJSON).name !== show) {
-				const response = await ShowService.searchShow(show);
+				const series = await ShowService.searchShow(show);
 				payload = {
 					name: show,
 					page: state.page,
-					series: response
+					series
 				};
 			} else {
 				payload = { ...JSON.parse(seriesJSON), page: state.page };
