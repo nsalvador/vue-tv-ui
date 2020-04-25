@@ -12,5 +12,5 @@ export const actions = {
 	logout({ commit }) {
 		AuthService.logout();
 		commit('logout');
-	}
+	},
 };

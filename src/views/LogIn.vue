@@ -1,11 +1,5 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
-    <v-snackbar v-model="snackbar" top color="red" :timeout="5000">
-      {{ message }}
-      <v-btn @click="snackbar=false" icon text>
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-    </v-snackbar>
     <v-card width="300">
       <v-toolbar color="grey darken-4" flat>
         <v-toolbar-title v-text="page" />
@@ -43,7 +37,7 @@
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import User from "../models/user";
 
 export default {
@@ -51,9 +45,7 @@ export default {
   data: () => ({
     page: "Log In",
     show: false,
-    user: new User(),
-    message: "",
-    snackbar: false
+    user: new User()
   }),
   validations: {
     user: {
@@ -80,15 +72,14 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["login"]),
+    ...mapMutations(["SET_ERROR_MESSAGE"]),
     async submitHandler() {
       if (!this.$v.$invalid) {
-        this.error = "";
         try {
           await this.login(this.user);
           this.$router.push({ name: "subscription" });
         } catch (error) {
-          this.message = error.response.data.description;
-          this.snackbar = true;
+          this.SET_ERROR_MESSAGE(error.response.data.description);
         }
       }
     },

@@ -4,6 +4,7 @@
     <app-drawer />
     <app-view />
     <app-footer />
+    <app-snackbar />
   </v-app>
 </template>
 
@@ -32,7 +33,8 @@ export default {
     AppHeader: () => import("./components/core/Header.vue"),
     AppDrawer: () => import("./components/core/Drawer.vue"),
     AppView: () => import("./components/core/View.vue"),
-    AppFooter: () => import("./components/core/Footer.vue")
+    AppFooter: () => import("./components/core/Footer.vue"),
+    AppSnackbar: () => import("./components/core/Snackbar.vue")
   }
 };
 </script>
