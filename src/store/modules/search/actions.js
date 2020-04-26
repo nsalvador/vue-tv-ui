@@ -1,25 +1,22 @@
-// import axios from 'axios';
 import ShowService from '../../../services/show';
 
 export const actions = {
 	async search({ commit, state }, show) {
-		try {
-			let payload;
-			const seriesJSON = sessionStorage.getItem('series');
-			if (!seriesJSON || JSON.parse(seriesJSON).name !== show) {
-				const series = await ShowService.searchShow(show);
-				payload = {
-					name: show,
-					page: state.page,
-					series
-				};
-			} else {
-				payload = { ...JSON.parse(seriesJSON), page: state.page };
-			}
-			commit('SET_SERIES', payload);
-		} catch (error) {
-			commit('SET_ERROR', error, { root: true });
+		let payload;
+		const seriesJSON = sessionStorage.getItem('series');
+		if (!seriesJSON || JSON.parse(seriesJSON).name !== show) {
+			const series = await ShowService.searchShow(show);
+			payload = {
+				name: show,
+				page: state.page,
+				series,
+			};
+		} else {
+			payload = {
+				...JSON.parse(seriesJSON),
+				page: state.page,
+			};
 		}
-		commit('SET_LOADING', false);
-	}
+		commit('SET_SERIES', payload);
+	},
 };

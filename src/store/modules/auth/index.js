@@ -1,10 +1,7 @@
 import { getters } from './getters';
 import { mutations } from './mutations';
 import { actions } from './actions';
-
-const state = {
-	token: sessionStorage.getItem('token') || ''
-};
+import { state } from './state';
 
 const namespaced = true;
 
@@ -13,5 +10,5 @@ export const auth = {
 	state,
 	getters,
 	mutations,
-	actions
+	actions,
 };

@@ -1,13 +1,10 @@
 import { mutations } from './mutations';
-
-const state = {
-	drawer: false
-};
+import { state } from './state';
 
 const namespaced = true;
 
 export const drawer = {
 	namespaced,
 	state,
-	mutations
+	mutations,
 };

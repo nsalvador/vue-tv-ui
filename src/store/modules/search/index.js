@@ -1,12 +1,7 @@
 import { getters } from './getters';
 import { mutations } from './mutations';
 import { actions } from './actions';
-
-const state = {
-	series: {},
-	page: 1,
-	isLoading: false
-};
+import { state } from './state';
 
 const namespaced = true;
 
@@ -15,5 +10,5 @@ export const search = {
 	state,
 	getters,
 	mutations,
-	actions
+	actions,
 };

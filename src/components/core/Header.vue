@@ -19,13 +19,6 @@
             class="ma-1"
           />
         </div>
-        <v-btn
-          text
-          v-text="links('Subscriptions').text"
-          class="ma-1 hidden-sm-and-down"
-          :to="links('Subscriptions').to"
-          v-show="isLoggedIn"
-        />
         <v-spacer />
         <v-text-field
           style="max-width: 300px;"
@@ -38,13 +31,21 @@
           @click:append="searchHandler"
           @keydown.enter="searchHandler"
         />
-        <v-btn
-          text
-          v-text="links('Log Out').text"
-          class="ma-1 hidden-sm-and-down"
-          v-show="isLoggedIn"
-          @click="logoutHandler"
-        />
+        <v-menu open-on-hover offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn v-show="isLoggedIn" text icon class="ma-2" v-on="on">
+              <v-icon>mdi-account-circle</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item :to="links('Subscriptions').to">
+              <v-list-item-title v-text="links('Subscriptions').text"></v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="logoutHandler">
+              <v-list-item-title v-text="links('Log Out').text"></v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </v-container>
   </v-app-bar>
@@ -55,8 +56,7 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   data: () => ({
-    show: "",
-    error: ""
+    show: ""
   }),
   computed: {
     ...mapGetters({
@@ -81,17 +81,23 @@ export default {
       this.logout();
       this.$router.push({ name: "login" });
     },
-    searchHandler() {
+    async searchHandler() {
       if (this.show) {
-        this.SET_PAGE();
-        this.SET_ERROR();
-        this.SET_SERIES();
-        this.SET_LOADING(true);
-        this.search(this.show);
-        if (this.$route.name !== "search") {
-          this.$router.push({ name: "search" });
+        try {
+          this.SET_PAGE();
+          this.SET_ERROR();
+          this.SET_SERIES();
+          this.SET_LOADING(true);
+          await this.search(this.show);
+          if (this.$route.name !== "search") {
+            this.$router.push({ name: "search" });
+          }
+        } catch (error) {
+          this.SET_ERROR(error.response.data);
+        } finally {
+          this.SET_LOADING(false);
+          this.show = "";
         }
-        this.show = "";
       }
     }
   }

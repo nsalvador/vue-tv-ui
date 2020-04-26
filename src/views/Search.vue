@@ -44,7 +44,7 @@ export default {
     },
     message() {
       return this.error
-        ? `${this.error.name}: ${this.error.message}`
+        ? `${this.error.message}`
         : `${this.series.results} ${
             this.series.results !== 1 ? "results" : "result"
           } for '${this.series.name}'`;
