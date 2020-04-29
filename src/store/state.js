@@ -9,4 +9,5 @@ export const state = {
 	message: '',
 	snackbar: false,
 	error: null,
+	selection: [],
 };

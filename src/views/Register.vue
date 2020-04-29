@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex fill-height justify-center align-center">
     <v-card width="300">
-      <v-toolbar color="grey darken-4" flat>
+      <v-toolbar flat>
         <v-toolbar-title v-text="page" />
       </v-toolbar>
       <v-card-text class="pb-0">

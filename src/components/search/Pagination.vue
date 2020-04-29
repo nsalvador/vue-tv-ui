@@ -25,9 +25,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("search", ["SET_PAGE"]),
+    ...mapMutations({
+      SET_PAGE: "search/SET_PAGE",
+      SET_SELECTION: "SET_SELECTION"
+    }),
     ...mapActions("search", ["search"]),
     searchHandler() {
+      this.SET_SELECTION();
       this.search(this.series.name);
     }
   }

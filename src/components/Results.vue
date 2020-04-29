@@ -1,7 +1,7 @@
 <template>
   <v-container class="pt-0">
     <v-row dense>
-      <v-col v-for="(show, index) in shows" :key="index" cols="6" sm="3" lg="3">
+      <v-col v-for="(show, index) in shows" :key="index" cols="6" sm="4" lg="4">
         <app-image :show="show">
           <template slot="info">
             <app-info :show="show" />

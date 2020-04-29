@@ -2,7 +2,12 @@
   <v-container class="pb-0">
     <v-row>
       <v-col>
-        <v-banner>{{ message }}</v-banner>
+        <v-banner single-line>
+          {{ message }}
+          <template v-slot:actions>
+            <slot name="buttons" />
+          </template>
+        </v-banner>
       </v-col>
     </v-row>
   </v-container>

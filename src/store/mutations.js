@@ -7,4 +7,5 @@ export const mutations = {
 		Vue.set(state, 'snackbar', !!message);
 	},
 	SET_SNACKBAR: (state, payload = false) => Vue.set(state, 'snackbar', payload),
+	SET_SELECTION: (state, payload = []) => Vue.set(state, 'selection', payload),
 };

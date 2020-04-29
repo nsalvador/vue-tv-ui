@@ -70,7 +70,8 @@ export default {
       SET_LOADING: "search/SET_LOADING",
       SET_SERIES: "search/SET_SERIES",
       SET_PAGE: "search/SET_PAGE",
-      SET_ERROR: "SET_ERROR"
+      SET_ERROR: "SET_ERROR",
+      SET_SELECTION: "SET_SELECTION"
     }),
     ...mapActions({
       search: "search/search",
@@ -87,6 +88,7 @@ export default {
           this.SET_PAGE();
           this.SET_ERROR();
           this.SET_SERIES();
+          this.SET_SELECTION();
           this.SET_LOADING(true);
           await this.search(this.show);
           if (this.$route.name !== "search") {
